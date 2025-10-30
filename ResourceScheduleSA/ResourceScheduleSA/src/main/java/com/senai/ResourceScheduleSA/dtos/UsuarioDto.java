@@ -1,4 +1,4 @@
 package com.senai.ResourceScheduleSA.dtos;
 
-public class UsuarioDto {
+public class   UsuarioDto {
 }
