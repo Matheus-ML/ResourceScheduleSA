@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RecursoService {
 
-    RecursoRepository recursoRepository;
+    private RecursoRepository recursoRepository;
 
     public RecursoService(RecursoRepository recursoRepository) {
         this.recursoRepository = recursoRepository;
