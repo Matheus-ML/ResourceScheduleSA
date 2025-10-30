@@ -1,5 +1,6 @@
 package com.senai.ResourceScheduleSA.services;
 
+import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
