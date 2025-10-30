@@ -21,9 +21,7 @@ public class UsuarioService {
     //Criar
     public Boolean cadastrarUsuario(UsuarioDto usuarioDto){
 
-        if (cadastrarUsuario(usuarioDto).equals(true)){
             UsuarioModel usuarioModel = new UsuarioModel();
-
             usuarioModel.setNome(usuarioDto.getNome());
             usuarioModel.setSenha(usuarioDto.getSenha());
             usuarioModel.setEmail(usuarioDto.getEmail());
@@ -33,9 +31,6 @@ public class UsuarioService {
             usuarioRepository.save(usuarioModel);
             return true;
 
-        } else {
-            return false;
-        }
     }
     //Listar
     public List<UsuarioDto> listaUsuarioDto(){
