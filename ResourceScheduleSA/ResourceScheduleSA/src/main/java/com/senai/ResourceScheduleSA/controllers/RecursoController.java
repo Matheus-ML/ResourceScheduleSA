@@ -2,6 +2,7 @@ package com.senai.ResourceScheduleSA.controllers;
 
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
+import com.senai.ResourceScheduleSA.services.RecursoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,17 +10,18 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RecursoController {
 
-    RecursoRepository recursoRepository;
+    RecursoService recursoService;
 
-    public RecursoRepository getRecursoRepository() {
-        return recursoRepository;
+    public RecursoController(RecursoService recursoService) {
+        this.recursoService = recursoService;
     }
 
     @PostMapping("/recurso")
     public String cadastrar(@ModelAttribute ("recursoDto") RecursoDto recursoDto){
 
-        return "redirect:/recursolista";
+        recursoService.cadastrarRecurso(recursoDto);
 
+        return "redirect:/recursolista";
     }
 
     @PostMapping("/recurso/{id}")
