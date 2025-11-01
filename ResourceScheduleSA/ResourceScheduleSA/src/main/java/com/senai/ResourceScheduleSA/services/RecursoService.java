@@ -24,28 +24,31 @@ public class RecursoService {
     }
 
     //Criar
-   public Boolean cadastrarRecurso (RecursoDto recursoDto){
+    public Boolean cadastrarRecurso(RecursoDto recursoDto) {
 
-         RecursoModel recursoModel = new RecursoModel();
+        RecursoModel recursoModel = new RecursoModel();
 
-         recursoModel.setTipo(recursoDto.getTipo());
-         recursoModel.setDescricao(recursoDto.getDescricao());
-         recursoModel.setDataInicio(recursoDto.getDataInicio());
-         recursoModel.setDataFinal(recursoDto.getDataFinal());
-         recursoModel.setHoraInicio(recursoDto.getHoraInicio());
-         recursoModel.setHoraFinal(recursoDto.getHoraFinal());
-         recursoModel.setDiaDisponivel(recursoDto.getDiaDisponivel());
-         recursoRepository.save(recursoModel);
-         return true;
-   }
+        recursoModel.setTipo(recursoDto.getTipo());
+        recursoModel.setDescricao(recursoDto.getDescricao());
+        recursoModel.setDataInicio(recursoDto.getDataInicio());
+        recursoModel.setDataFinal(recursoDto.getDataFinal());
+        recursoModel.setHoraInicio(recursoDto.getHoraInicio());
+        recursoModel.setHoraFinal(recursoDto.getHoraFinal());
+        System.out.println(recursoDto.getDiaDisponivel());
+        recursoModel.setDiaDisponivel(recursoDto.getDiaDisponivel());
+
+        recursoRepository.save(recursoModel);
+        return true;
+    }
+
     //Listar
-    public List<RecursoDto> listaRecurso(){
+    public List<RecursoDto> listaRecurso() {
 
         List<RecursoDto> listaRecursoDto = new ArrayList<>();
 
         List<RecursoModel> listaRecursoModel = recursoRepository.findAll();
 
-        for (RecursoModel recurso : listaRecursoModel){
+        for (RecursoModel recurso : listaRecursoModel) {
 
             RecursoDto recursoDto = new RecursoDto();
             //--Converter os dados do usuarioModel para usuarioDto
@@ -62,12 +65,13 @@ public class RecursoService {
             listaRecursoDto.add(recursoDto);
         }
         //--retornar a lista de usuarioDTO
-        return  listaRecursoDto;
+        return listaRecursoDto;
     }
+
     //Atualizar
-    public Boolean atualizar (RecursoDto recursoDto, Long id){
+    public Boolean atualizar(RecursoDto recursoDto, Long id) {
         Optional<RecursoModel> recursoModel = recursoRepository.findById(id);
-        if (recursoModel.isPresent()){
+        if (recursoModel.isPresent()) {
 
             RecursoModel recursoModelAtualizado = new RecursoModel();
 
@@ -81,19 +85,20 @@ public class RecursoService {
 
             recursoRepository.save(recursoModelAtualizado);
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
+
     //Excluir
-    public Boolean excluir(Long id){
+    public Boolean excluir(Long id) {
         Optional<RecursoModel> recursoModel = recursoRepository.findById(id);
-        if (recursoModel.isPresent()){
+        if (recursoModel.isPresent()) {
             //--Significa que encontro o usuário pelo ID
             recursoRepository.delete(recursoModel.get());
             return true;
-            } else{
+        } else {
             return false;
         }
     }

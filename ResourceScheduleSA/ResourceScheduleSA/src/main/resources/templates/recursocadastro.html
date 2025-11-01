@@ -34,7 +34,7 @@
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="recurso_tipo" class="form-label">Tipo</label>
-                    <input type="text" class="form-control" th:field="*{tipo}" id="recurso_tipo" name="recurso_tipo" placeholder="joao@senai.com" required/>
+                    <input type="text" class="form-control" th:field="*{tipo}" id="recurso_tipo" name="recurso_tipo" placeholder="Eletrônico" required/>
                 </div>
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
@@ -42,7 +42,7 @@
                     <label for="recurso_diaDisponivel" class="form-label">Dias disponíveis</label>
                     <select id="recurso_diaDisponivel" name="recurso_diaDisponivel" class="form-control" th:field="*{diaDisponivel}" required>
                         <option value="">Selecione um dia disponível</option>
-                        <option th:each="diaDisponivel : ${recursoDto.getDiaDisponivelLista()}" th:value="${diaDisponivel.codigo}" th:text="${diaDisponivel.descricao}">
+                        <option th:each="diaDisponivel : ${recursoDto.getDiaDisponivelLista()}" th:value="${diaDisponivel}" th:text="${diaDisponivel.descricao}">
                         </option>
                     </select>
                 </div>
