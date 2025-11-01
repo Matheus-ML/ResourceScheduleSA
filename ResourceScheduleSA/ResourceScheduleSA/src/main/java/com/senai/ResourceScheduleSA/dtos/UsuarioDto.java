@@ -1,6 +1,8 @@
 package com.senai.ResourceScheduleSA.dtos;
 
 import jakarta.persistence.Column;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +22,6 @@ public class UsuarioDto {
 
     private String matricula;
 
+    @Past(message = "A data de nascimento deve ser menor que a data atual.")
     private LocalDate data;
 }

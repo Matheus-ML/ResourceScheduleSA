@@ -21,6 +21,13 @@ public class UsuarioService {
     //Criar
     public Boolean cadastrarUsuario(UsuarioDto usuarioDto){
 
+        Optional<UsuarioModel> usuarioOP = usuarioRepository.findByEmail(usuarioDto.getEmail());
+
+        if (usuarioOP.isPresent()){
+            //Ver como será feito o alert para o usuário sobre o e-mail já existir
+            return false;
+        }
+
             UsuarioModel usuarioModel = new UsuarioModel();
             usuarioModel.setNome(usuarioDto.getNome());
             usuarioModel.setSenha(usuarioDto.getSenha());
@@ -39,7 +46,11 @@ public class UsuarioService {
 
             List<UsuarioModel> listaUsuarioModel = usuarioRepository.findAll();
 
+
+
+
             for (UsuarioModel usuario : listaUsuarioModel){
+
 
                 UsuarioDto usuarioDto = new UsuarioDto();
                 //--Converter os dados do usuarioModel para usuarioDto
@@ -62,6 +73,12 @@ public class UsuarioService {
             Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
             if (usuarioOP.isPresent()){
+
+                Optional<UsuarioModel> usuarioVerificaEmail = usuarioRepository.findByEmail(usuarioDto.getEmail());
+
+                if (usuarioVerificaEmail.isPresent()){
+                    return false;
+                }
 
                 UsuarioModel usuario = usuarioOP.get();
 

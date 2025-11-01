@@ -2,6 +2,7 @@ package com.senai.ResourceScheduleSA.controllers;
 
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
 import com.senai.ResourceScheduleSA.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +21,7 @@ public class UsuarioController {
 
     //Método que envia os dados para o service fazer o cadastro e faz o redirecionamento para a tela de lista do usuario.
     @PostMapping("/usuario")
-    public String cadastrar(@ModelAttribute("usuarioDto")UsuarioDto dados){
+    public String cadastrar(@Valid @ModelAttribute("usuarioDto")UsuarioDto dados){
 
         usuarioService.cadastrarUsuario(dados);
 
@@ -29,7 +30,7 @@ public class UsuarioController {
 
     //Método que envia os dados para o service fazer a atualização e faz o redirecionamento para a tela de lista do usuario.
     @PostMapping("/usuario/{id}")
-    public String atualizar(@ModelAttribute("usuarioDto")UsuarioDto dados, @PathVariable Long id){
+    public String atualizar(@Valid @ModelAttribute("usuarioDto")UsuarioDto dados, @PathVariable Long id){
 
         usuarioService.atualizar(id, dados);
 
