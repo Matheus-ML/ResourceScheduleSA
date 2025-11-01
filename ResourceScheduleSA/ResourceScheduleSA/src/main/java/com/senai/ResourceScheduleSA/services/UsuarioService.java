@@ -49,7 +49,7 @@ public class UsuarioService {
                 usuarioDto.setSenha(usuario.getSenha());
                 usuarioDto.setEmail(usuario.getEmail());
                 usuarioDto.setData(usuario.getData());
-                usuarioDto.setMatricula(usuarioDto.getMatricula());
+                usuarioDto.setMatricula(usuario.getMatricula());
 
                 //--adicionar o usuarioDTO na lista de usuarioDTO
                 listaUsuarioDto.add(usuarioDto);
@@ -59,8 +59,6 @@ public class UsuarioService {
         }
     //Atualizar
     public Boolean atualizar(Long id, UsuarioDto usuarioDto){
-
-        if (atualizar(id,usuarioDto).equals(true)){
             Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
             if (usuarioOP.isPresent()){
@@ -79,11 +77,8 @@ public class UsuarioService {
                 //Ver retorno ao dar errada o método
                 return false;
             }
-        }else {
-            //Ver retorno ao dar errada o método
-            return false;
-        }
     }
+    
     //Excluir
     public Boolean excluir(Long id){
 
@@ -97,6 +92,25 @@ public class UsuarioService {
             return false;
         }
 
+    }
+
+    public UsuarioDto listaUsuarioId(Long id){
+
+        Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
+
+        if (usuarioOP.isPresent()){
+            UsuarioDto usuarioDto = new UsuarioDto();
+
+            usuarioDto.setId(usuarioOP.get().getId());
+            usuarioDto.setNome(usuarioOP.get().getNome());
+            usuarioDto.setEmail(usuarioOP.get().getEmail());
+            usuarioDto.setSenha(usuarioOP.get().getSenha());
+            usuarioDto.setMatricula(usuarioOP.get().getMatricula());
+            usuarioDto.setData(usuarioOP.get().getData());
+
+            return usuarioDto;
+        }
+        return null;
     }
 
 }

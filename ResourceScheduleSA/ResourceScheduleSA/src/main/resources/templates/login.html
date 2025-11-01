@@ -40,18 +40,18 @@
                     <h3 class="text-center mb-4">Login</h3>
 
                     <!-- inicio do formulário, deve conter apenas os inputs e botão-->
-                    <form method="post" th:action="@{/login}"  th:object="${loginDto}"  >
+                    <form method="post" th:action="@{/login}"  th:object="${usuarioDto}"  >
 
                         <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                         <div class="mb-3">
-                            <label for="user_login" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" th:field="*{login}" id="user_login" name="user_login" placeholder="seu_email@gmail.com" required/>
+                            <label for="usuario_email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="usuario_email" name="usuario_email" placeholder="seu_email@gmail.com" required/>
                         </div>
 
                         <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                         <div class="mb-3">
-                            <label for="user_password" class="form-label">Senha</label>
-                            <input type="password" class="form-control" th:field="*{senha}" id="user_password" name="user_password" placeholder="Informe sua senha" required/>
+                            <label for="usuario_password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" th:field="*{senha}" id="usuario_password" name="usuario_password" placeholder="Informe sua senha" required/>
                         </div>
 
                         <!-- Botão de confirmação do formulário -->

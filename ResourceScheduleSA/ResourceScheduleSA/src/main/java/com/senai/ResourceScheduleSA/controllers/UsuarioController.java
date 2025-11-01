@@ -22,6 +22,8 @@ public class UsuarioController {
     @PostMapping("/usuario")
     public String cadastrar(@ModelAttribute("usuarioDto")UsuarioDto dados){
 
+        usuarioService.cadastrarUsuario(dados);
+
         return "redirect:/usuariolista";
     }
 
@@ -29,12 +31,16 @@ public class UsuarioController {
     @PostMapping("/usuario/{id}")
     public String atualizar(@ModelAttribute("usuarioDto")UsuarioDto dados, @PathVariable Long id){
 
+        usuarioService.atualizar(id, dados);
+
         return "redirect:/usuariolista";
     }
 
     //Método que o id ao service para fazer a exclusão e retorna OK, para o cliente
     @DeleteMapping("/usuario/{id}")
     public ResponseEntity<Boolean> excluir(@PathVariable Long id){
+
+        usuarioService.excluir(id);
 
         return ResponseEntity.ok().body(true);
     }

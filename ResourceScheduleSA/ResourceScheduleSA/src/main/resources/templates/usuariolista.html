@@ -30,8 +30,10 @@
                     <tr>
                         <th>id</th>
                         <th>Nome</th>
-                        <th>Login</th>
+                        <th>Email</th>
                         <th>Senha</th>
+                        <th>Matrícula</th>
+                        <th>Data de Nascimento</th>
                         <th style="white-space: nowrap;">Atualizar</th>
                         <th style="white-space: nowrap;">Excluir</th>
                     </tr>
@@ -41,9 +43,11 @@
                     <tr th:each="usuario : ${listaDto}">
                         <td th:text="${usuario.id}"></td>
                         <td th:text="${usuario.nome}"></td>
-                        <td th:text="${usuario.login}"></td>
+                        <td th:text="${usuario.email}"></td>
                         <td th:text="${usuario.senha}"></td>
-                        <td><a th:href="@{'/usuarioatualizar/' + ${usuario.id}}" class="btn btn-warning">Alterar</a></td>
+                        <td th:text="${usuario.matricula}"></td>
+                        <td th:text="${usuario.data}"></td>
+                        <td><a th:href="@{'/usuario/' + ${usuario.id}}" class="btn btn-warning">Alterar</a></td>
                         <td><button th:data-usuario-id="${usuario.id}" class="excluir btn btn-danger">Excluir</button></td>
                     </tr>
                     </tbody>
