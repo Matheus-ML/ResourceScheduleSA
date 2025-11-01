@@ -40,9 +40,9 @@
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="recurso_diaDisponivel" class="form-label">Dias disponíveis</label>
-                    <select id="recurso_diaDisponivel" name="recurso_diaDisponivel" class="form-control" th:field="*{categoriaId}">
-                        <option value="">Selecione uma categoria</option>
-                        <option th:each="categoria : ${categoriaDto}" th:value="${categoria.id}" th:text="${categoria.nome}">
+                    <select id="recurso_diaDisponivel" name="recurso_diaDisponivel" class="form-control" th:field="*{diaDisponivel}" required>
+                        <option value="">Selecione um dia disponível</option>
+                        <option th:each="diaDisponivel : ${recursoDto.getDiaDisponivelLista()}" th:value="${diaDisponivel.codigo}" th:text="${diaDisponivel.descricao}">
                         </option>
                     </select>
                 </div>

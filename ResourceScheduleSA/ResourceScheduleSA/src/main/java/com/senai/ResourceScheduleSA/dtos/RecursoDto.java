@@ -22,6 +22,11 @@ public class RecursoDto {
 
     private DiaDisponivel diaDisponivel;
 
+    //retorna a lista de palavras do ENUM ou seja os dias disponíveis
+    public DiaDisponivel[] getDiaDisponivelLista(){
+        return DiaDisponivel.values();
+    }
+
     private LocalDate dataInicio;
 
     private LocalDate dataFinal;

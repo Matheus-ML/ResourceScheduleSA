@@ -2,6 +2,7 @@ package com.senai.ResourceScheduleSA.controllers;
 
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
+import com.senai.ResourceScheduleSA.models.DiaDisponivel;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.services.RecursoService;
 import org.springframework.stereotype.Controller;
