@@ -1,6 +1,7 @@
 package com.senai.ResourceScheduleSA.controllers;
 
 import com.senai.ResourceScheduleSA.repositories.ReservaRepository;
+import com.senai.ResourceScheduleSA.services.ReservaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ReservaListasController {
 
+    ReservaService reservaService;
 
-    ReservaRepository recursoRepository;
-
-    public ReservaRepository getRecursoRepository() {
-        return recursoRepository;
+    public ReservaListasController(ReservaService reservaService) {
+        this.reservaService = reservaService;
     }
 
     @GetMapping("/reservalista")

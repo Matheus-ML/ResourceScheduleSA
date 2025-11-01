@@ -16,8 +16,8 @@ public class ReservaController {
 
    private ReservaService reservaService;
 
-    public ReservaService getReservaService() {
-        return reservaService;
+    public ReservaController(ReservaService reservaService) {
+        this.reservaService = reservaService;
     }
 
     @PostMapping("/reserva")
