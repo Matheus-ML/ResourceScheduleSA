@@ -28,7 +28,7 @@ public class ReservaListasController {
         return "reservaatualizar";
     }
 
-    @GetMapping("/recurso")
+    @GetMapping("/reserva")
     public String viewCadastrar (Model model){
 
         return "reservacadastro";
