@@ -40,17 +40,17 @@
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="usuario_senha" class="form-label">Senha</label>
-                    <input type="password" min="1" class="form-control" th:field="*{senha}" id="usuario_senha" name="usuario_senha" />
+                    <input type="password" min="1" class="form-control" th:field="*{senha}" id="usuario_senha" name="usuario_senha" required/>
                 </div>
 
                 <div class="mb-3">
                     <label for="usuario_matricula" class="form-label">Matricula</label>
-                    <input type="text" min="1" class="form-control" th:field="*{matricula}" id="usuario_matricula" name="usuario_matricula" />
+                    <input type="text" min="1" class="form-control" th:field="*{matricula}" id="usuario_matricula" name="usuario_matricula" required/>
                 </div>
 
                 <div class="mb-3">
                     <label for="usuario_data" class="form-label">Data de Nascimento</label>
-                    <input type="date" min="1" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" />
+                    <input type="date" min="1" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" required/>
                 </div>
 
                 <div class="row">

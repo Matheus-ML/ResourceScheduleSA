@@ -78,7 +78,7 @@ public class UsuarioService {
                 return false;
             }
     }
-    
+
     //Excluir
     public Boolean excluir(Long id){
 
