@@ -33,30 +33,30 @@ public class UsuarioService {
 
     }
     //Listar
-    public List<UsuarioDto> listaUsuarioDto(){
+        public List<UsuarioDto> listaUsuarioDto(){
 
-        List<UsuarioDto> listaUsuarioDto = new ArrayList<>();
+            List<UsuarioDto> listaUsuarioDto = new ArrayList<>();
 
-        List<UsuarioModel> listaUsuarioModel = usuarioRepository.findAll();
+            List<UsuarioModel> listaUsuarioModel = usuarioRepository.findAll();
 
-        for (UsuarioModel usuario : listaUsuarioModel){
+            for (UsuarioModel usuario : listaUsuarioModel){
 
-            UsuarioDto usuarioDto = new UsuarioDto();
-            //--Converter os dados do usuarioModel para usuarioDto
+                UsuarioDto usuarioDto = new UsuarioDto();
+                //--Converter os dados do usuarioModel para usuarioDto
 
-            usuarioDto.setId(usuario.getId());
-            usuarioDto.setNome(usuario.getNome());
-            usuarioDto.setSenha(usuario.getSenha());
-            usuarioDto.setEmail(usuario.getEmail());
-            usuarioDto.setData(usuario.getData());
-            usuarioDto.setMatricula(usuarioDto.getMatricula());
+                usuarioDto.setId(usuario.getId());
+                usuarioDto.setNome(usuario.getNome());
+                usuarioDto.setSenha(usuario.getSenha());
+                usuarioDto.setEmail(usuario.getEmail());
+                usuarioDto.setData(usuario.getData());
+                usuarioDto.setMatricula(usuarioDto.getMatricula());
 
-            //--adicionar o usuarioDTO na lista de usuarioDTO
-            listaUsuarioDto.add(usuarioDto);
+                //--adicionar o usuarioDTO na lista de usuarioDTO
+                listaUsuarioDto.add(usuarioDto);
+            }
+            //--retornar a lista de usuarioDTO
+            return listaUsuarioDto;
         }
-        //--retornar a lista de usuarioDTO
-        return listaUsuarioDto;
-    }
     //Atualizar
     public Boolean atualizar(Long id, UsuarioDto usuarioDto){
 
@@ -87,18 +87,16 @@ public class UsuarioService {
     //Excluir
     public Boolean excluir(Long id){
 
-        if (excluir(id).equals(true)){
             Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
             if (usuarioOP.isPresent()){
                 //--Significa que encontro o usuário pelo ID
                 usuarioRepository.delete(usuarioOP.get());
                 return true;
-            }
-        }else{
+            } else{
             return false;
         }
-        return false;
+
     }
 
 }
