@@ -34,6 +34,10 @@ public class RecursoListasController {
     @GetMapping("/recurso/{id}")
     public String viewAtualizar(@PathVariable Long id, Model model){
 
+        RecursoDto recursoDto = recursoService.listarRecursoId(id);
+
+        model.addAttribute("recursoDto", recursoDto);
+
         return "recursoatualizar";
     }
 

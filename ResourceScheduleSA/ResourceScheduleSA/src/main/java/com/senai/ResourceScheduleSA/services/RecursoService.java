@@ -105,4 +105,24 @@ public class RecursoService {
         }
     }
 
+    //Listar por ID
+    public RecursoDto listarRecursoId(Long id) {
+
+        Optional<RecursoModel> recursoOP = recursoRepository.findById(id);
+        RecursoDto recursoDto = new RecursoDto();
+
+        if (recursoOP.isPresent()) {
+            recursoDto.setId(recursoOP.get().getId());
+            recursoDto.setDescricao(recursoOP.get().getDescricao());
+            recursoDto.setTipo(recursoOP.get().getTipo());
+            recursoDto.setDataInicio(recursoOP.get().getDataInicio());
+            recursoDto.setDataFinal(recursoOP.get().getDataFinal());
+            recursoDto.setHoraInicio(recursoOP.get().getHoraInicio());
+            recursoDto.setHoraFinal(recursoOP.get().getHoraFinal());
+            recursoDto.setDiaDisponivel(recursoOP.get().getDiaDisponivel());
+        }
+
+        return recursoDto;
+    }
+
 }
