@@ -5,6 +5,7 @@ import com.senai.ResourceScheduleSA.models.DiaDisponivel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,12 +28,13 @@ public class RecursoDto {
         return DiaDisponivel.values();
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInicio;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFinal;
-
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime horaInicio;
-
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime horaFinal;
 
 }

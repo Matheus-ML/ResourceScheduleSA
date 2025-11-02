@@ -33,24 +33,29 @@
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
-                    <label for="usuario_email" class="form-label">Email</label>
-                    <input type="email" class="form-control" th:field="*{email}" id="usuario_email" name="usuario_email" placeholder="joao@senai.com" required/>
+                    <label for="recurso_tipo" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" th:field="*{tipo}" id="recurso_tipo" name="recurso_tipo" placeholder="joao@senai.com" required/>
                 </div>
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
-                    <label for="usuario_senha" class="form-label">Senha</label>
-                    <input type="password" min="1" class="form-control" th:field="*{senha}" id="usuario_senha" name="usuario_senha" required/>
+                    <label for="recurso_dataInicial" class="form-label">Data Inicial</label>
+                    <input type="date" min="1" class="form-control" th:field="*{dataInicio}" id="recurso_dataInicial" name="recurso_dataInicial" required/>
                 </div>
 
                 <div class="mb-3">
-                    <label for="usuario_matricula" class="form-label">Matricula</label>
-                    <input type="text" min="1" class="form-control" th:field="*{matricula}" id="usuario_matricula" name="usuario_matricula" required/>
+                    <label for="recurso_dataFinal" class="form-label">Data Final</label>
+                    <input type="date" min="1" class="form-control" th:field="*{dataFinal}" id="recurso_dataFinal" name="recurso_dataFinal" required/>
                 </div>
 
                 <div class="mb-3">
-                    <label for="usuario_data" class="form-label">Data de Nascimento</label>
-                    <input type="date" min="1" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" required/>
+                    <label for="recurso_horaInicial" class="form-label">Hora Inicial</label>
+                    <input type="time" min="1" class="form-control" th:field="*{horaInicio}" id="recurso_horaInicial" name="recurso_horaInicial" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="recurso_horaFinal" class="form-label">Hora Final</label>
+                    <input type="time" min="1" class="form-control" th:field="*{horaFinal}" id="recurso_horaFinal" name="recurso_horaFinal" required/>
                 </div>
 
                 <div class="row">
@@ -58,7 +63,7 @@
                         <button type="submit" class="btn btn-primary w-100">Atualizar</button>
                     </div>
                     <div class="col-auto">
-                        <a th:href="@{~/usuariolista}" class="btn btn-secondary">Fechar</a>
+                        <a th:href="@{~/recursolista}" class="btn btn-secondary">Fechar</a>
                     </div>
                 </div>
 
