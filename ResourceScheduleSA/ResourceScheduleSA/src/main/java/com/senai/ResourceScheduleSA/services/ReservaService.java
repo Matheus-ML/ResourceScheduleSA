@@ -1,5 +1,6 @@
 package com.senai.ResourceScheduleSA.services;
 
+import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
 import com.senai.ResourceScheduleSA.repositories.ReservaRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ public class ReservaService {
     public ReservaService(ReservaRepository reservaRepository) {
         this.reservaRepository = reservaRepository;
     }
+
 
     //Criar
 

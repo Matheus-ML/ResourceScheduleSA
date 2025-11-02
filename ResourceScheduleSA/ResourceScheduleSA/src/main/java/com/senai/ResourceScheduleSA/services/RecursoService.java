@@ -1,12 +1,9 @@
 package com.senai.ResourceScheduleSA.services;
 
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
-import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
 import com.senai.ResourceScheduleSA.models.RecursoModel;
-import com.senai.ResourceScheduleSA.models.UsuarioModel;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
-import jakarta.persistence.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

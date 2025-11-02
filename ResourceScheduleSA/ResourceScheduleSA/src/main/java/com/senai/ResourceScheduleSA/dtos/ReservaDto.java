@@ -35,5 +35,9 @@ public class ReservaDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataCancelamento;
 
+    private String usuarioNome;
+
+    private String recursoTipo;
+
     private String observacao;
 }
