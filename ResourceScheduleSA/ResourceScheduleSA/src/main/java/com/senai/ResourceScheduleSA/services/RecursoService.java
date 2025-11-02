@@ -53,13 +53,14 @@ public class RecursoService {
             RecursoDto recursoDto = new RecursoDto();
             //--Converter os dados do usuarioModel para usuarioDto
 
-            recursoDto.setTipo(recursoDto.getTipo());
-            recursoDto.setDescricao(recursoDto.getDescricao());
-            recursoDto.setDataInicio(recursoDto.getDataInicio());
-            recursoDto.setDataFinal(recursoDto.getDataFinal());
-            recursoDto.setHoraInicio(recursoDto.getHoraInicio());
-            recursoDto.setHoraFinal(recursoDto.getHoraFinal());
-            recursoDto.setDiaDisponivel(recursoDto.getDiaDisponivel());
+            recursoDto.setId(recurso.getId());
+            recursoDto.setTipo(recurso.getTipo());
+            recursoDto.setDescricao(recurso.getDescricao());
+            recursoDto.setDataInicio(recurso.getDataInicio());
+            recursoDto.setDataFinal(recurso.getDataFinal());
+            recursoDto.setHoraInicio(recurso.getHoraInicio());
+            recursoDto.setHoraFinal(recurso.getHoraFinal());
+            recursoDto.setDiaDisponivel(recurso.getDiaDisponivel());
 
             //--adicionar o usuarioDTO na lista de usuarioDTO
             listaRecursoDto.add(recursoDto);
@@ -75,6 +76,7 @@ public class RecursoService {
 
             RecursoModel recursoModelAtualizado = new RecursoModel();
 
+            recursoModelAtualizado.setId(recursoModel.get().getId());
             recursoModelAtualizado.setTipo(recursoDto.getTipo());
             recursoModelAtualizado.setDescricao(recursoDto.getDescricao());
             recursoModelAtualizado.setDataInicio(recursoDto.getDataInicio());
