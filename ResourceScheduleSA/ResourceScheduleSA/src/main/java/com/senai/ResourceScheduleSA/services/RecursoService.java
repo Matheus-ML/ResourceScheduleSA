@@ -93,6 +93,7 @@ public class RecursoService {
     //Excluir
     public Boolean excluir(Long id) {
         Optional<RecursoModel> recursoModel = recursoRepository.findById(id);
+
         if (recursoModel.isPresent()) {
             //--Significa que encontro o usuário pelo ID
             recursoRepository.delete(recursoModel.get());

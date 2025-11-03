@@ -23,6 +23,8 @@ public class ReservaController {
     @PostMapping("/reserva")
     public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados){
 
+        reservaService.cadastrar(dados);
+
         return "redirect:/reservalista";
     }
 
@@ -30,12 +32,16 @@ public class ReservaController {
     @PostMapping("/reserva/{id}")
     public String atualizar(@ModelAttribute("reservaDto")ReservaDto dados, @PathVariable Long id){
 
+        reservaService.atualizar(id, dados);
+
         return "redirect:/reservalista";
     }
 
 
     @DeleteMapping("/reserva/{id}")
     public ResponseEntity<Boolean> excluir(@PathVariable Long id){
+
+        reservaService.excluir(id);
 
         return ResponseEntity.ok().body(true);
     }

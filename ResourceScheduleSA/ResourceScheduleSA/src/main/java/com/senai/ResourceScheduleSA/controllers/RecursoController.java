@@ -31,6 +31,9 @@ public class RecursoController {
 
     @DeleteMapping("/recurso/{id}")
     public ResponseEntity<Boolean> excluir(@PathVariable Long id){
+
+        recursoService.excluir(id);
+
       return   ResponseEntity.ok().body(true);
     }
 

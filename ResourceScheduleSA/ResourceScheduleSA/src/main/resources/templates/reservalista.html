@@ -21,7 +21,7 @@
         <div class="card-body">
 
             <p class="card-text"> <!-- Alterado aqui, verificar-->
-                <a th:href="@{~/reservacadastro}" class="btn btn-primary">Lista de Reservas</a>
+                <a th:href="@{~/reservacadastro}" class="btn btn-primary">Cadastro de Reservas</a>
             </p>
 
             <div class="table-responsive">
@@ -31,9 +31,10 @@
                         <th>id</th>
                         <th>Usuário</th>
                         <th>Recurso</th>
-                        <th>Data da Reserva</th>
                         <th>Hora inícial</th>
                         <th>Hora final</th>
+                        <th>Data de Cancelamento</th>
+                        <th>Data da Reserva</th>
                         <th>Observação</th>
                         <th style="white-space: nowrap;">Atualizar</th>
                         <th style="white-space: nowrap;">Excluir</th>
@@ -43,13 +44,15 @@
                     <tbody>
                     <tr th:each="reserva : ${reservaDto}">
                         <td th:text="${reserva.id}"></td>
-                        <td th:text="${reserva.usuarioModel}"></td>
-                        <td th:text="${usuario.email}"></td>
-                        <td th:text="${usuario.senha}"></td>
-                        <td th:text="${usuario.matricula}"></td>
-                        <td th:text="${usuario.data}"></td>
-                        <td><a th:href="@{'/usuario/' + ${usuario.id}}" class="btn btn-warning">Alterar</a></td>
-                        <td><button th:data-usuario-id="${usuario.id}" class="excluir btn btn-danger">Excluir</button></td>
+                        <td th:text="${reserva.usuarioNome}"></td>
+                        <td th:text="${reserva.recursoTipo}"></td>
+                        <td th:text="${reserva.horaInicio}"></td>
+                        <td th:text="${reserva.horaFinal}"></td>
+                        <td th:text="${reserva.dataCancelamento}"></td>
+                        <td th:text="${reserva.dataReserva}"></td>
+                        <td th:text="${reserva.observacao}"></td>
+                        <td><a th:href="@{'/reserva/' + ${reserva.id}}" class="btn btn-warning">Alterar</a></td>
+                        <td><button th:data-reserva-id="${reserva.id}" class="excluir btn btn-danger">Excluir</button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -60,7 +63,7 @@
 <!-- Fim conteúdo principal -->
 
 <!-- Inclua o script do excluir_usuario.js -->
-<script src="/excluir_usuario.js"></script>
+<script src="/excluir_reserva.js"></script>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
