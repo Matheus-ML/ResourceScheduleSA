@@ -28,7 +28,7 @@
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="reserva_usuario" class="form-label">Usuario</label>
-                    <select id="reserva_usuario" name="reserva_usuario" class="form-control" th:field="*{usuarioModel}">
+                    <select id="reserva_usuario" name="reserva_usuario" class="form-control" th:field="*{usuarioModel}" required>
                         <option value="">Selecione um usuário</option>
                         <option th:each="usuario : ${usuarioDtoLista}" th:value="${usuario.id}" th:text="${usuario.nome}">
                         </option>
@@ -38,9 +38,9 @@
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="reserva_recurso" class="form-label">Recurso</label>
-                    <select id="reserva_recurso" name="reserva_recurso" class="form-control" th:field="*{recursoModel}">
+                    <select id="reserva_recurso" name="reserva_recurso" class="form-control" th:field="*{recursoModel}" required>
                         <option value="">Selecione um recurso</option>
-                        <option th:each="recurso : ${recursoDtoLista}" th:value="${recurso.id}" th:text="${recurso.tipo}">
+                        <option th:each="recurso : ${recursoDtoLista}" th:value="${recurso.id}" th:text="${recurso.tipo}" >
                         </option>
                     </select>
                 </div>
