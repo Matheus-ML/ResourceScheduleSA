@@ -5,6 +5,7 @@ import com.senai.ResourceScheduleSA.models.UsuarioModel;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,11 +23,6 @@ public class UsuarioService {
     public Boolean cadastrarUsuario(UsuarioDto usuarioDto){
 
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findByEmail(usuarioDto.getEmail());
-
-        if (usuarioOP.isPresent()){
-            //Ver como será feito o alert para o usuário sobre o e-mail já existir
-            return false;
-        }
 
             UsuarioModel usuarioModel = new UsuarioModel();
             usuarioModel.setNome(usuarioDto.getNome());
@@ -133,5 +129,7 @@ public class UsuarioService {
     public boolean emailExiste(String email) {
         return usuarioRepository.findByEmail(email).isPresent();
     }
+
+
 
 }

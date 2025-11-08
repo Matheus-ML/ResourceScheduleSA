@@ -58,6 +58,7 @@
         <div class="mb-3">
           <label for="usuario_data" class="form-label">Data de Nascimento</label>
           <input type="date" min="1" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" required/>
+          <div th:if="${erroData}" class="alert alert-danger mt-2" th:text="${erroData}"></div>
         </div>
 
         <div class="row">
