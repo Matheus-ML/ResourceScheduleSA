@@ -130,4 +130,8 @@ public class UsuarioService {
         return null;
     }
 
+    public boolean emailExiste(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
+    }
+
 }

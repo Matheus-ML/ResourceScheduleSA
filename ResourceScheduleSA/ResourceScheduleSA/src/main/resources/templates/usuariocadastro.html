@@ -20,6 +20,10 @@
     </div>
 
     <div class="card-body">
+      <!--Aqui nos enviamos o erro de e-mail já existente, para que o usuário insira outro e-mail -_- -->
+      <div th:if="${erroEmail}" class="alert alert-danger" role="alert">
+        <span th:text="${erroEmail}"></span>
+      </div>
 
       <!-- inicio do formulário, deve conter apenas os inputs e botão-->
       <form method="post" th:action="@{/usuario}"  th:object="${usuarioDto}"  >
