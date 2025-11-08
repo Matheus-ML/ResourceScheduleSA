@@ -19,10 +19,10 @@ public class UsuarioDto {
     private String nome;
 
     private String email;
-    @Pattern(
-            regexp = "^[A-Za-z0-9]{5,}$",
-            message = "O nome de usuário deve ter pelo menos 5 caracteres e conter apenas letras e números. "
-    )
+        @Pattern(
+                    regexp = "^[A-Za-z0-9]{5,}$",
+                    message = "A senha do usuário deve ter pelo menos 5 caracteres e conter apenas letras e números. "
+            )
     private String senha;
 
     private String matricula;

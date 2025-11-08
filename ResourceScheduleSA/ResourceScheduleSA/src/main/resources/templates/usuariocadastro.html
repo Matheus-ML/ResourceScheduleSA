@@ -45,6 +45,9 @@
         <div class="mb-3">
           <label for="usuario_senha" class="form-label">Senha</label>
           <input type="password" min="1" class="form-control" th:field="*{senha}" id="usuario_senha" name="usuario_senha" required/>
+          <!--Igual situação do e-mail, válida  a senha com a regra de negocio de somente caracteres e numeros, sendo no minimo 5 caracte, logo depois-->
+          <div th:if="${#fields.hasErrors('senha')}" class="alert alert-danger mt-2" th:errors="*{senha}"></div>
+
         </div>
 
         <div class="mb-3">
