@@ -33,12 +33,14 @@
         <div class="mb-3">
           <label for="usuario_nome" class="form-label">Nome</label>
           <input type="text" class="form-control" th:field="*{nome}" id="usuario_nome" name="usuario_nome" placeholder="Joao da Silva" required/>
+          <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
         </div>
 
         <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
         <div class="mb-3">
           <label for="usuario_login" class="form-label">Email</label>
           <input type="email" class="form-control" th:field="*{email}" id="usuario_login" name="usuario_login" placeholder="joao@senai.com" required/>
+          <div th:if="${erroEmail}" th:text="${erroEmail}"></div>
         </div>
 
         <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
@@ -54,11 +56,15 @@
           <label for="usuario_matricula" class="form-label">Matrícula</label>
           <input type="text" min="1" class="form-control" th:field="*{matricula}" id="usuario_matricula" name="usuario_matricula" required/>
         </div>
-
+        <!--Aqui nos "pegamos" a data futura caso o usuário insira, usamos o max para que ele não possa informar uma data acima da data atual.
+         Também realizamos a utilização do onvalid e oninput para, onvalid dispara quando o campo é inválido e já passa a mensagem do usuário informando o erro,
+         já o oninput limpa o campo para que o usuário digite. -->
         <div class="mb-3">
           <label for="usuario_data" class="form-label">Data de Nascimento</label>
-          <input type="date" min="1" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" required/>
-          <div th:if="${erroData}" class="alert alert-danger mt-2" th:text="${erroData}"></div>
+          <input type="date" class="form-control" th:field="*{data}" id="usuario_data" name="usuario_data" th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                 oninvalid="this.setCustomValidity('A data de nascimento deve ser anterior a data de hoje!')"
+                 oninput="this.setCustomValidity('')" required/>
+          <div th:if="${erroData}" class="alert alert-danger mt-2" role="alert" th:text="${erroData}"></div>
         </div>
 
         <div class="row">

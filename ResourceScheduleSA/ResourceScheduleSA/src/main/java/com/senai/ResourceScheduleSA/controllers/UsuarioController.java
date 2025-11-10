@@ -25,35 +25,33 @@ public class UsuarioController {
 
     //Método que envia os dados para o service fazer o cadastro e faz o redirecionamento para a tela de lista do usuario.
     @PostMapping("/usuario")
-    public String cadastrar( @ModelAttribute("usuarioDto") UsuarioDto dados, BindingResult result, Model model) {
-        // Se houver erros de validação (ex: senha invalida)
+    public String cadastrar(
+            @Valid @ModelAttribute("usuarioDto") UsuarioDto dados,
+            BindingResult result,
+            Model model) {
+
+        // Verificação caso o usuario tenha inserido uma data de mais de 500 anos atras.
+        if (dados.getData() != null) {
+            LocalDate hoje = LocalDate.now();
+            LocalDate limiteAntigo = hoje.minusYears(500);
+
+            if (dados.getData().isBefore(limiteAntigo)) {
+                model.addAttribute("erroData", "A data de nascimento não pode ter mais de 500 anos.");
+                return "usuariocadastro";
+            }
+        }
+
+        // Verificação padrão do Spring (senha, data futura, campos obrigatórios)
         if (result.hasErrors()) {
             return "usuariocadastro";
         }
-        // Verifica se o e-mail já existe
+
+        // Verifica duplicidade de e-mail
         if (usuarioService.emailExiste(dados.getEmail())) {
             model.addAttribute("erroEmail", "O e-mail informado já está cadastrado. Tente outro.");
             return "usuariocadastro";
         }
 
-        LocalDate hoje = LocalDate.now();
-        LocalDate nascimento = dados.getData();
-        LocalDate limiteAntigo = hoje.minusYears(500);
-
-        if (nascimento == null) {
-            model.addAttribute("erroData", "Por favor, informe uma data de nascimento.");
-            return "usuariocadastro";
-        }
-
-        if (nascimento.isAfter(hoje)) {
-            model.addAttribute("erroData", "A data de nascimento não pode ser no futuro!");
-            return "usuariocadastro";
-        }
-
-        if (nascimento.isBefore(limiteAntigo)) {
-            model.addAttribute("erroData", "A data de nascimento não pode ter mais de 500 anos.");
-            return "usuariocadastro";
-        }
         usuarioService.cadastrarUsuario(dados);
         return "redirect:/usuariolista";
     }
