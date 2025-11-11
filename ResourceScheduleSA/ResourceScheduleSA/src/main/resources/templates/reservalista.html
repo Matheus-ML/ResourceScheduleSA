@@ -31,10 +31,10 @@
                         <th>id</th>
                         <th>Usuário</th>
                         <th>Recurso</th>
+                        <th>Data da Reserva</th>
                         <th>Hora inícial</th>
                         <th>Hora final</th>
                         <th>Data de Cancelamento</th>
-                        <th>Data da Reserva</th>
                         <th>Observação</th>
                         <th style="white-space: nowrap;">Atualizar</th>
                         <th style="white-space: nowrap;">Excluir</th>
@@ -46,13 +46,15 @@
                         <td th:text="${reserva.id}"></td>
                         <td th:text="${reserva.usuarioNome}"></td>
                         <td th:text="${reserva.recursoTipo}"></td>
+                        <td th:text="${reserva.dataReserva}"></td>
                         <td th:text="${reserva.horaInicio}"></td>
                         <td th:text="${reserva.horaFinal}"></td>
                         <td th:text="${reserva.dataCancelamento}"></td>
-                        <td th:text="${reserva.dataReserva}"></td>
                         <td th:text="${reserva.observacao}"></td>
-                        <td><a th:href="@{'/reserva/' + ${reserva.id}}" class="btn btn-warning">Alterar</a></td>
-                        <td><button th:data-reserva-id="${reserva.id}" class="excluir btn btn-danger">Excluir</button></td>
+                        <td><a th:href="@{'/reserva/' + ${reserva.id}}" class="btn btn-warning">Visualizar</a></td>
+                        <td><a th:if="${reserva.dataCancelamento == null}" th:href="@{'/reservacancelar/' + ${reserva.id}}" class="excluir btn btn-danger">Cancelar</a>
+                            <span th:if="${reserva.dataCancelamento != null}" class="text-muted">Reserva cancelada</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -57,18 +57,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="reserva_dataCancelamento" class="form-label">Data de Cancelamento</label>
-                    <input type="date" min="1" class="form-control" th:field="*{dataCancelamento}" id="reserva_dataCancelamento" name="reserva_dataCancelamento" required/>
-                </div>
-
-                <div class="mb-3">
                     <label for="reserva_dataReserva" class="form-label">Data da Reserva</label>
                     <input type="date" min="1" class="form-control" th:field="*{dataReserva}" id="reserva_dataReserva" name="reserva_dataReserva" required/>
-                </div>
-
-                <div class="mb-3">
-                    <label for="reserva_observacao" class="form-label">Observação</label>
-                    <input type="text" min="1" class="form-control" th:field="*{observacao}" id="reserva_observacao" name="reserva_observacao" required/>
                 </div>
 
                 <div class="row">
@@ -76,7 +66,7 @@
                         <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
                     </div>
                     <div class="col-auto">
-                        <a th:href="@{~/reserva lista}" class="btn btn-secondary">Fechar</a>
+                        <a th:href="@{~/reservalista}" class="btn btn-secondary">Fechar</a>
                     </div>
                 </div>
 

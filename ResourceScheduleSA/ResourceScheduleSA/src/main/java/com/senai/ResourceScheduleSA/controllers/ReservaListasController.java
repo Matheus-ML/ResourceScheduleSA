@@ -38,17 +38,10 @@ public class ReservaListasController {
     }
 
     @GetMapping("/reserva/{id}")
-    public String viewAtualizar(@PathVariable Long id, Model model){
+    public String viewVisualizar(@PathVariable Long id, Model model){
 
         ReservaDto reservaDto = reservaService.listaPorId(id);
-
-        List<UsuarioDto> usuarioDtoLista = usuarioService.listaUsuarioDto();
-        List<RecursoDto> recursoDtoLista = recursoService.listaRecurso();
-
         model.addAttribute("reservaDto", reservaDto);
-        model.addAttribute("usuarioDtoLista", usuarioDtoLista);
-        model.addAttribute("recursoDtoLista", recursoDtoLista);
-
 
         return "reservaatualizar";
     }
@@ -61,10 +54,19 @@ public class ReservaListasController {
 
         model.addAttribute("usuarioDtoLista", usuarioDtoLista);
         model.addAttribute("recursoDtoLista", recursoDtoLista);
-
         model.addAttribute("reservaDto", new ReservaDto());
 
         return "reservacadastro";
+    }
+
+    @GetMapping("/reservacancelar/{id}")
+    public String viewCancelar(Model model, @PathVariable Long id){
+
+        ReservaDto reservaDto = reservaService.listaPorId(id);
+
+        model.addAttribute("reservaDto", reservaDto);
+
+        return "reservacancelar";
     }
 
 }

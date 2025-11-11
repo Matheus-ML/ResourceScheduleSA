@@ -38,12 +38,12 @@ public class ReservaController {
     }
 
 
-    @DeleteMapping("/reserva/{id}")
-    public ResponseEntity<Boolean> excluir(@PathVariable Long id){
+    @PostMapping("/reservacancelar/{id}")
+    public String cancelar(@PathVariable Long id, @ModelAttribute ReservaDto dados){
 
-        reservaService.excluir(id);
+        reservaService.cancelarReserva(id, dados);
 
-        return ResponseEntity.ok().body(true);
+        return "redirect:/reservalista";
     }
 
 }

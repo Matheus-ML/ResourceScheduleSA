@@ -12,6 +12,9 @@ import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,12 +39,10 @@ public class ReservaService {
 
         if (usuarioOP.isPresent() && recursoOP.isPresent()){
             ReservaModel reservaModel = new ReservaModel();
-            reservaModel.setObservacao(dados.getObservacao());
             reservaModel.setRecursoModel(recursoOP.get());
             reservaModel.setUsuarioModel(usuarioOP.get());
             reservaModel.setHoraInicio(dados.getHoraInicio());
             reservaModel.setHoraFinal(dados.getHoraFinal());
-            reservaModel.setDataCancelamento(dados.getDataCancelamento());
             reservaModel.setDataReserva(dados.getDataReserva());
 
             reservaRepository.save(reservaModel);
@@ -85,13 +86,11 @@ public class ReservaService {
             ReservaModel reserva = new ReservaModel();
 
             reserva.setId(reservaOP.get().getId());
-            reserva.setObservacao(reservaDto.getObservacao());
             reserva.setUsuarioModel(reservaDto.getUsuarioModel());
             reserva.setRecursoModel(reservaDto.getRecursoModel());
             reserva.setHoraInicio(reservaDto.getHoraInicio());
             reserva.setHoraFinal(reservaDto.getHoraFinal());
             reserva.setDataReserva(reservaDto.getDataReserva());
-            reserva.setDataCancelamento(reservaDto.getDataCancelamento());
 
             reservaRepository.save(reserva);
             return true;
@@ -114,13 +113,11 @@ public class ReservaService {
     public ReservaDto listaPorId(Long id){
         Optional<ReservaModel> reservaOP = reservaRepository.findById(id);
 
-
-
         ReservaDto reservaDto = new ReservaDto();
         if (reservaOP.isPresent()){
-
             reservaDto.setObservacao(reservaOP.get().getObservacao());
             reservaDto.setRecursoModel(reservaOP.get().getRecursoModel());
+            reservaDto.setRecursoTipo(reservaOP.get().getRecursoModel().getTipo());
             reservaDto.setUsuarioModel(reservaOP.get().getUsuarioModel());
             reservaDto.setUsuarioNome(reservaOP.get().getUsuarioModel().getNome());
             reservaDto.setHoraInicio(reservaOP.get().getHoraInicio());
@@ -133,5 +130,26 @@ public class ReservaService {
         return reservaDto;
     }
 
+    public Boolean cancelarReserva(Long id, ReservaDto dados) {
+
+        Optional<ReservaModel> reservaOP = reservaRepository.findById(id);
+
+        if (reservaOP.isPresent()){
+            ReservaModel reserva = reservaOP.get();
+
+            long distanciaTempo = ChronoUnit.DAYS.between(LocalDate.now(), reserva.getDataReserva());
+            System.out.println("Distancia entre hoje e a data: "+distanciaTempo);
+
+            if (distanciaTempo >= 1){
+                reserva.setDataCancelamento(LocalDate.now());
+                reserva.setObservacao(dados.getObservacao());
+                reservaRepository.save(reserva);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 
 }

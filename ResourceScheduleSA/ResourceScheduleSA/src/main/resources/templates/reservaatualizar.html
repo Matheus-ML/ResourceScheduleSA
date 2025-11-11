@@ -27,54 +27,43 @@
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
-                    <label for="reserva_usuario" class="form-label">Usuario</label>
-                    <select id="reserva_usuario" name="reserva_usuario" class="form-control" th:field="*{usuarioModel}">
-                        <option value="">Selecione um usuário</option>
-                        <option th:each="usuario : ${usuarioDtoLista}" th:value="${usuario.id}" th:text="${usuario.nome}">
-                        </option>
-                    </select>
+                    <label class="form-label">Usuario</label>
+                    <p class="form-control" th:text="${reservaDto.usuarioNome}"></p>
                 </div>
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
-                    <label for="reserva_recurso" class="form-label">Recurso</label>
-                    <select id="reserva_recurso" name="reserva_recurso" class="form-control" th:field="*{recursoModel}">
-                        <option value="">Selecione um recurso</option>
-                        <option th:each="recurso : ${recursoDtoLista}" th:value="${recurso.id}" th:text="${recurso.tipo}">
-                        </option>
-                    </select>
+                    <label class="form-label">Recurso</label>
+                    <p class="form-control" th:text="${reservaDto.getRecursoTipo()}"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="reserva_horaInicial" class="form-label">Hora Inicial</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaInicio}" id="reserva_horaInicial" name="reserva_horaInicial" required/>
+                    <label class="form-label">Hora Inicial</label>
+                    <p class="form-control" th:text="${reservaDto.getHoraInicio()}"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="reserva_horaFinal" class="form-label">Hora Final</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaFinal}" id="reserva_horaFinal" name="reserva_horaFinal" required/>
-                </div>
-
-                <div class="mb-3">
-                    <label for="reserva_dataCancelamento" class="form-label">Data Cancelamento</label>
-                    <input type="date" min="1" class="form-control" th:field="*{dataCancelamento}" id="reserva_dataCancelamento" name="reserva_dataCancelamento" required/>
+                    <label class="form-label">Hora Final</label>
+                    <p class="form-control" th:text="${reservaDto.getHoraFinal()}"></p>
                 </div>
 
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
-                    <label for="reserva_dataReserva" class="form-label">Data Reserva</label>
-                    <input type="date" min="1" class="form-control" th:field="*{dataReserva}" id="reserva_dataReserva" name="reserva_dataReserva" required/>
+                    <label class="form-label">Data Reserva</label>
+                    <p class="form-control" th:text="${reservaDto.getDataReserva()}"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="recurso_observacao" class="form-label">Observação</label>
-                    <input type="text" min="1" class="form-control" th:field="*{observacao}" id="recurso_observacao" name="recurso_observacao" required/>
+                    <label class="form-label">Data Cancelamento</label>
+                    <p class="form-control" th:text="${reservaDto.getDataCancelamento()}">Sem data de cancelamento</p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Observação</label>
+                    <p class="form-control" th:text="${reservaDto.getObservacao()}">Sem observações de cancelamento</p>
                 </div>
 
                 <div class="row">
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary w-100">Atualizar</button>
-                    </div>
                     <div class="col-auto">
                         <a th:href="@{~/reservalista}" class="btn btn-secondary">Fechar</a>
                     </div>

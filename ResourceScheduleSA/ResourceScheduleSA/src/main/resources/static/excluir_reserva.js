@@ -1,5 +1,6 @@
 
 // Adicione um ouvinte de eventos aos botões de exclusão
+/*
 document.querySelectorAll('.excluir').forEach(function(button) {
     button.addEventListener('click',
         function() {
@@ -37,3 +38,4 @@ document.querySelectorAll('.excluir').forEach(function(button) {
             }
         });
 });
+*/

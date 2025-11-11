@@ -22,7 +22,7 @@ public class UsuarioDto {
     private String email;
         @Pattern(
                     regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$",
-                    message = "A senha do usuário deve obrigatoriamente conter pelo menos 5 caracteres, contendo apenas letras e números. "
+                    message = "A senha deve contar pelo menos uma letra, um número e no mínimo 5 caracteres!"
             )
     private String senha;
 
