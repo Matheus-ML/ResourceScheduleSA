@@ -53,12 +53,32 @@ public class UsuarioController {
 
     //Método que envia os dados para o service fazer a atualização e faz o redirecionamento para a tela de lista do usuario.
     @PostMapping("/usuario/{id}")
-    public String atualizar(@Valid @ModelAttribute("usuarioDto")UsuarioDto dados, @PathVariable Long id){
+    public String atualizar(@PathVariable Long id, @Valid @ModelAttribute("usuarioDto") UsuarioDto dados, BindingResult result, Model model) {
+
+
+        if (usuarioService.emailExiste(dados.getEmail())) {
+            result.rejectValue("email","email.duplicado","O e-mail informado já está cadastrado. Tente outro!");
+        }
+
+        if (dados.getData() != null) {
+            LocalDate hoje = LocalDate.now();
+            LocalDate limiteAntigo = hoje.minusYears(500);
+
+            if (dados.getData().isBefore(limiteAntigo)) {
+                result.rejectValue("data","data.500","A data de nascimento não pode ter mais de 500 anos.");
+            }
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("usuarioDto", dados);
+            return "usuarioatualizar";
+        }
+
 
         usuarioService.atualizar(id, dados);
-
         return "redirect:/usuariolista";
     }
+
 
     //Método que o id ao service para fazer a exclusão e retorna OK, para o cliente
     @DeleteMapping("/usuario/{id}")
