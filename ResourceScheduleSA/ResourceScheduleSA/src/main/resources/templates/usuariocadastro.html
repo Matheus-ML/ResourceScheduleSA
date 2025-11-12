@@ -70,7 +70,7 @@
                            th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
                            oninvalid="this.setCustomValidity('A data de nascimento deve ser anterior a data de hoje!')"
                            oninput="this.setCustomValidity('')" required/>
-                    <div th:if="${#fields.hasErrors('data')}" class="alert alert-danger mt-2" role="alert"
+                    <div th:if="${#fields.hasErrors('data')}" th:errors="*{data}" class="alert alert-danger mt-2" role="alert"
                          th:text="${data}"></div>
                 </div>
 
