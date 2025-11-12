@@ -131,5 +131,8 @@ public class UsuarioService {
     }
 
 
-
+    public boolean emailExisteParaOutroUsuario(String email, Long idAtual) {
+        Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
+        return usuario.isPresent() && !usuario.get().getId().equals(idAtual);
+    }
 }

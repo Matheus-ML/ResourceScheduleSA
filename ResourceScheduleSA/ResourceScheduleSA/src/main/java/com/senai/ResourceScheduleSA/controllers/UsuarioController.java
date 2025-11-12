@@ -53,12 +53,32 @@ public class UsuarioController {
 
     //Método que envia os dados para o service fazer a atualização e faz o redirecionamento para a tela de lista do usuario.
     @PostMapping("/usuario/{id}")
-    public String atualizar(@Valid @ModelAttribute("usuarioDto")UsuarioDto dados, @PathVariable Long id){
+    public String atualizar(@Valid @ModelAttribute("usuarioDto") UsuarioDto dados, BindingResult result, @PathVariable Long id, Model model) {
+
+        // Verifica duplicidade de e-mail, ignorando o próprio usuário
+        if (usuarioService.emailExisteParaOutroUsuario(dados.getEmail(), id)) {
+            result.rejectValue("email", "email.duplicado", "O e-mail informado já está cadastrado. Tente outro!");
+        }
+
+        // Verificação de data de nascimento com mais de 500 anos
+        if (dados.getData() != null) {
+            LocalDate hoje = LocalDate.now();
+            LocalDate limiteAntigo = hoje.minusYears(500);
+
+            if (dados.getData().isBefore(limiteAntigo)) {
+                result.rejectValue("data", "data.500", "A data de nascimento não pode ter mais de 500 anos.");
+            }
+        }
+
+        // Verificação padrão do Spring
+        if (result.hasErrors()) {
+            return "usuarioatualizar"; // Nome do template de edição
+        }
 
         usuarioService.atualizar(id, dados);
-
         return "redirect:/usuariolista";
     }
+
 
     //Método que o id ao service para fazer a exclusão e retorna OK, para o cliente
     @DeleteMapping("/usuario/{id}")
