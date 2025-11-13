@@ -1,6 +1,7 @@
 package com.senai.ResourceScheduleSA.services;
 
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
+import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
 import com.senai.ResourceScheduleSA.models.RecursoModel;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
@@ -121,6 +122,13 @@ public class RecursoService {
         }
 
         return recursoDto;
+    }
+
+    public boolean verificaDatas(RecursoDto dados){
+        if (dados.getDataInicio().isAfter(dados.getDataFinal())){
+            return true;
+        }
+        return false;
     }
 
 }

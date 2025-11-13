@@ -56,7 +56,7 @@ public class UsuarioController {
     public String atualizar(@Valid @ModelAttribute("usuarioDto") UsuarioDto dados, BindingResult result, @PathVariable Long id, Model model) {
 
         // Verifica duplicidade de e-mail, ignorando o próprio usuário
-        if (usuarioService.emailExisteParaOutroUsuario(dados.getEmail(), id)) {
+        if (usuarioService.emailExisteParaOutroUsuario(dados, id)) {
             result.rejectValue("email", "email.duplicado", "O e-mail informado já está cadastrado. Tente outro!");
         }
 

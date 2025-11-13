@@ -49,12 +49,23 @@
 
                 <div class="mb-3">
                     <label for="recurso_dataInicio" class="form-label">Data Inicial</label>
-                    <input type="date" min="1" class="form-control" th:field="*{dataInicio}" id="recurso_dataInicio" name="recurso_dataInicio" required/>
+                    <input type="date"
+                           class="form-control"
+                           th:field="*{dataInicio}"
+                           id="recurso_dataInicio"
+                           name="recurso_dataInicio"
+                           th:attr="min=${#dates.format(#dates.create(2025, 11, 10), 'yyyy-MM-dd')}"
+                           oninvalid="this.setCustomValidity('A data inicial deve ser igual ou posterior a 10/11/2025!')"
+                           oninput="this.setCustomValidity('')"
+                           required/>
                 </div>
+
 
                 <div class="mb-3">
                     <label for="recurso_dataFinal" class="form-label">Data Final</label>
                     <input type="date" min="1" class="form-control" th:field="*{dataFinal}" id="recurso_dataFinal" name="recurso_dataFinal" required/>
+                    <div th:if="${#fields.hasErrors('dataFinal')}" th:errors="*{dataFinal}"
+                         class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="mb-3">

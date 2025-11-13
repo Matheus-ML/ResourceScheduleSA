@@ -5,6 +5,7 @@ import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.services.RecursoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -17,7 +18,11 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso")
-    public String cadastrar(@ModelAttribute ("recursoDto") RecursoDto recursoDto){
+    public String cadastrar(@ModelAttribute ("recursoDto") RecursoDto recursoDto, BindingResult result){
+
+        if (!recursoService.verificaDatas(recursoDto)){
+            result.rejectValue("dataFinal","data.erro","A data inicial tem que ser após a data final!");
+        }
 
         recursoService.cadastrarRecurso(recursoDto);
 

@@ -6,6 +6,7 @@ import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -131,10 +132,12 @@ public class UsuarioService {
     }
 
 
-    public boolean emailExisteParaOutroUsuario(String email, Long idAtual) {
-        Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
+    public boolean emailExisteParaOutroUsuario(UsuarioDto dados, Long idAtual) {
+        Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(dados.getEmail());
         return usuario.isPresent() && !usuario.get().getId().equals(idAtual);
     }
+
+
 
     public boolean validarSenha(String senhaInvalida) {
         return senhaInvalida.matches("[a-zA-Z0-9]+");
