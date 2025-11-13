@@ -135,4 +135,8 @@ public class UsuarioService {
         Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
         return usuario.isPresent() && !usuario.get().getId().equals(idAtual);
     }
+
+    public boolean validarSenha(String senhaInvalida) {
+        return senhaInvalida.matches("[a-zA-Z0-9]+");
+    }
 }
