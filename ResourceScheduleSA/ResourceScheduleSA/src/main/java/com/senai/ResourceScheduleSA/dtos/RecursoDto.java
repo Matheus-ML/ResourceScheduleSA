@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class RecursoDto {
 
     private String tipo;
 
-    private DiaDisponivel diaDisponivel;
+    private List<DiaDisponivel> diaDisponivel;
 
     //retorna a lista de palavras do ENUM ou seja os dias disponíveis
     public DiaDisponivel[] getDiaDisponivelLista(){

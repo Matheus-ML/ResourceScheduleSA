@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,8 +26,14 @@ public class RecursoModel {
     @Column(name = "tipo")
     private String tipo;
 
-    @Column(name ="diaDisponivel")
-    private DiaDisponivel diaDisponivel;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(
+            name = "recurso_dias",
+            joinColumns = @JoinColumn(name = "recurso_id")
+    )
+    @Column(name = "diaDisponivel")
+    private List<DiaDisponivel> diaDisponivel;
 
     @Column(name = "dataInicio")
     private LocalDate dataInicio;
