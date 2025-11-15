@@ -1,8 +1,11 @@
 package com.senai.ResourceScheduleSA.controllers;
 
+import com.senai.ResourceScheduleSA.config.ControleSessao;
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
+import com.senai.ResourceScheduleSA.dtos.UsuarioSessaoDto;
 import com.senai.ResourceScheduleSA.models.UsuarioModel;
 import com.senai.ResourceScheduleSA.services.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +31,22 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public String autenticar(UsuarioDto usuarioDto, HttpSession session) {
+    public String autenticar(UsuarioDto usuarioDto, HttpServletRequest request) {
 
         UsuarioModel usuarioModel = usuarioService.autenticar(usuarioDto.getEmail(), usuarioDto.getSenha());
 
         if (usuarioModel != null) {
-            session.setAttribute("usuarioLogado", usuarioModel);
-            return "redirect:/home"; // lança par ao home
-        }
 
+            UsuarioSessaoDto usuarioSessao = new UsuarioSessaoDto(usuarioModel.getId(), usuarioModel.getNome());
+
+            ControleSessao.registrar(request, usuarioSessao);
+
+            return "home";
+        }
         return "redirect:/login?erro=true";
     }
+
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

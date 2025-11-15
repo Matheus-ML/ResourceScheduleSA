@@ -9,9 +9,9 @@ public class UsuarioSessaoDto {
     public UsuarioSessaoDto() {
     }
 
-    public UsuarioSessaoDto(String nome, Long id) {
-        this.nome = nome;
+    public UsuarioSessaoDto(Long id, String nome ) {
         this.id = id;
+        this.nome = nome;
     }
 
     public String getNome() {
