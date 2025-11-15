@@ -2,6 +2,7 @@ package com.senai.ResourceScheduleSA.services;
 
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
+import com.senai.ResourceScheduleSA.models.DiaDisponivel;
 import com.senai.ResourceScheduleSA.models.RecursoModel;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
@@ -32,7 +33,6 @@ public class RecursoService {
         recursoModel.setDataFinal(recursoDto.getDataFinal());
         recursoModel.setHoraInicio(recursoDto.getHoraInicio());
         recursoModel.setHoraFinal(recursoDto.getHoraFinal());
-        System.out.println(recursoDto.getDiaDisponivel());
         recursoModel.setDiaDisponivel(recursoDto.getDiaDisponivel());
 
         recursoRepository.save(recursoModel);
@@ -58,7 +58,7 @@ public class RecursoService {
             recursoDto.setDataFinal(recurso.getDataFinal());
             recursoDto.setHoraInicio(recurso.getHoraInicio());
             recursoDto.setHoraFinal(recurso.getHoraFinal());
-            recursoDto.setDiaDisponivel(recurso.getDiaDisponivel());
+            recursoDto.setDiaDisponivelTexto(converteDiaDisponivel(recurso.getDiaDisponivel()));
 
             //--adicionar o usuarioDTO na lista de usuarioDTO
             listaRecursoDto.add(recursoDto);
@@ -131,4 +131,19 @@ public class RecursoService {
         return false;
     }
 
+    public String converteDiaDisponivel(List<DiaDisponivel> diaDisponiveis){
+
+        if (diaDisponiveis == null || diaDisponiveis.isEmpty()){
+            return "";
+        }
+
+        StringBuilder texto = new StringBuilder();
+        for (int i = 0; i < diaDisponiveis.size(); i++) {
+            texto.append(diaDisponiveis.get(i).getDescricao());
+            if (i < diaDisponiveis.size() - 1) {
+                texto.append(", ");
+            }
+        }
+        return texto.toString();
+        }
 }

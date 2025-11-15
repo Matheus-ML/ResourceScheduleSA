@@ -11,7 +11,9 @@ import com.senai.ResourceScheduleSA.repositories.ReservaRepository;
 import com.senai.ResourceScheduleSA.repositories.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -33,9 +35,14 @@ public class ReservaService {
     }
 
     //Criar
-    public Boolean cadastrar (ReservaDto dados){
+    public String cadastrar (ReservaDto dados){
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(dados.getUsuarioModel().getId());
         Optional<RecursoModel> recursoOP = recursoRepository.findById(dados.getRecursoModel().getId());
+
+        Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(dados.getUsuarioModel().getId(), dados.getDataReserva());
+        if (reservaOP.isPresent()){
+            return "Reserva";
+        }
 
         if (usuarioOP.isPresent() && recursoOP.isPresent()){
             ReservaModel reservaModel = new ReservaModel();
@@ -44,12 +51,12 @@ public class ReservaService {
             reservaModel.setHoraInicio(dados.getHoraInicio());
             reservaModel.setHoraFinal(dados.getHoraFinal());
             reservaModel.setDataReserva(dados.getDataReserva());
-
             reservaRepository.save(reservaModel);
+            return "Ok";
         }
 
 
-        return true;
+        return "Erro";
     }
 
     //Listar
@@ -93,18 +100,6 @@ public class ReservaService {
             reserva.setDataReserva(reservaDto.getDataReserva());
 
             reservaRepository.save(reserva);
-            return true;
-        }
-        return false;
-    }
-
-    //Excluir
-    public Boolean excluir(Long id){
-        Optional<ReservaModel> reservaOP = reservaRepository.findById(id);
-        System.out.println(id);
-        System.out.println(reservaOP);
-        if (reservaOP.isPresent()){
-            reservaRepository.deleteById(id);
             return true;
         }
         return false;

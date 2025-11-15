@@ -37,6 +37,28 @@
                     <input type="text" class="form-control" th:field="*{tipo}" id="recurso_tipo" name="recurso_tipo" placeholder="joao@senai.com" required/>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Dias disponíveis</label>
+
+                    <div class="form-check"
+                         th:each="dia : ${recursoDto.diaDisponivelLista}">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               th:field="*{diaDisponivel}"
+                               th:value="${dia}"
+                               id="dia__${dia.name()} ">
+
+                        <label class="form-check-label"
+                               th:for="|dia__${dia.name()}|"
+                               th:text="${dia.descricao}">
+                        </label>
+                    </div>
+                    <div class="text-danger"
+                         th:if="${#fields.hasErrors('diaDisponivel')}"
+                         th:errors="*{diaDisponivel}">
+                    </div>
+                </div>
+
                 <!-- Adiciona uma margem inferior de 1rem (16px) ao elemento -->
                 <div class="mb-3">
                     <label for="recurso_dataInicial" class="form-label">Data Inicial</label>
@@ -50,12 +72,12 @@
 
                 <div class="mb-3">
                     <label for="recurso_horaInicial" class="form-label">Hora Inicial</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaInicio}" id="recurso_horaInicial" name="recurso_horaInicial" required/>
+                    <input type="time" min="08:00" class="form-control" th:field="*{horaInicio}" id="recurso_horaInicial" name="recurso_horaInicial" required/>
                 </div>
 
                 <div class="mb-3">
                     <label for="recurso_horaFinal" class="form-label">Hora Final</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaFinal}" id="recurso_horaFinal" name="recurso_horaFinal" required/>
+                    <input type="time" max="18:00" class="form-control" th:field="*{horaFinal}" id="recurso_horaFinal" name="recurso_horaFinal" required/>
                 </div>
 
                 <div class="row">

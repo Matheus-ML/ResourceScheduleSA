@@ -2,10 +2,12 @@ package com.senai.ResourceScheduleSA.controllers;
 
 import com.senai.ResourceScheduleSA.dtos.ReservaDto;
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
+import com.senai.ResourceScheduleSA.services.RecursoService;
 import com.senai.ResourceScheduleSA.services.ReservaService;
 import com.senai.ResourceScheduleSA.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +17,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReservaController {
 
    private ReservaService reservaService;
+   private RecursoService recursoService;
+   private UsuarioService usuarioService;
 
-    public ReservaController(ReservaService reservaService) {
+    public ReservaController(ReservaService reservaService, RecursoService recursoService, UsuarioService usuarioService) {
         this.reservaService = reservaService;
+        this.recursoService = recursoService;
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/reserva")
-    public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados){
+    public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados, Model model){
 
-        reservaService.cadastrar(dados);
+        String a = reservaService.cadastrar(dados);
+
+        if(a.equals("Reserva")){
+            model.addAttribute("erroReserva", "Usuário já possui reserva para essa data.");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
 
         return "redirect:/reservalista";
     }

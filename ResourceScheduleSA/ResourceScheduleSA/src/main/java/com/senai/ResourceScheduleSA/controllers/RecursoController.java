@@ -3,6 +3,7 @@ package com.senai.ResourceScheduleSA.controllers;
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.repositories.RecursoRepository;
 import com.senai.ResourceScheduleSA.services.RecursoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,10 +19,10 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso")
-    public String cadastrar(@ModelAttribute ("recursoDto") RecursoDto recursoDto, BindingResult result){
+    public String cadastrar(@Valid @ModelAttribute ("recursoDto") RecursoDto recursoDto, BindingResult result){
 
-        if (!recursoService.verificaDatas(recursoDto)){
-            result.rejectValue("dataFinal","data.erro","A data inicial tem que ser após a data final!");
+        if (result.hasErrors()){
+            return "recursocadastro";
         }
 
         recursoService.cadastrarRecurso(recursoDto);
@@ -30,8 +31,15 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso/{id}")
-    public String atualizar (@ModelAttribute ("recursoDto")RecursoDto recursoDto, @PathVariable Long id){
-        return "redirect:/usuariolista";
+    public String atualizar (@Valid @ModelAttribute ("recursoDto")RecursoDto recursoDto,BindingResult result, @PathVariable Long id){
+
+        if (result.hasErrors()){
+            return "recursoatualizar";
+        }
+
+        recursoService.atualizar(recursoDto, id);
+
+        return "redirect:/recursolista";
     }
 
     @DeleteMapping("/recurso/{id}")

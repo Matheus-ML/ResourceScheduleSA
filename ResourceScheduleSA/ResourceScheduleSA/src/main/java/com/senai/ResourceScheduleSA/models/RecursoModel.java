@@ -26,8 +26,11 @@ public class RecursoModel {
     @Column(name = "tipo")
     private String tipo;
 
+    //diz ao JPA que esse atributo não é uma entidade relacionada, mas sim uma coleção de valores embutidos
     @ElementCollection(fetch = FetchType.EAGER)
+    //Indica para ele guardar a coleção como uma String
     @Enumerated(EnumType.STRING)
+    //Configura a tabela de coleção que vai guardar os elementos da lista no banco.
     @CollectionTable(
             name = "recurso_dias",
             joinColumns = @JoinColumn(name = "recurso_id")
