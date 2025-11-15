@@ -142,4 +142,8 @@ public class UsuarioService {
     public boolean validarSenha(String senhaInvalida) {
         return senhaInvalida.matches("[a-zA-Z0-9]+");
     }
+
+    public UsuarioModel autenticar (String email, String senha){
+        return usuarioRepository.findByEmailAndSenha(email,senha);
+    }
 }
