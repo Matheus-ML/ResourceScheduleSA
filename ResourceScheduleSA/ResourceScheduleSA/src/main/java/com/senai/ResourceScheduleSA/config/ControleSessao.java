@@ -11,6 +11,7 @@ public class ControleSessao {
         //--Obter a sessão da requisição ativa do momento
         HttpSession session = request.getSession(true); // cria se não existir
 
+
         //--armazenar os dados do usuário logado!
         session.setAttribute("codigoUsuario", usuarioSessao.getId());
         session.setAttribute("nomeUsuario", usuarioSessao.getNome());
@@ -18,14 +19,17 @@ public class ControleSessao {
 
     public static UsuarioSessaoDto obter(HttpServletRequest request){
         HttpSession session = request.getSession(false);
+
         UsuarioSessaoDto usuarioSessao = new UsuarioSessaoDto();
+
         if (session != null && session.getAttribute("codigoUsuario") != null) {
-            usuarioSessao.setId((long) session.getAttribute("codigoUsuario"));
+
+            usuarioSessao.setId((Long) session.getAttribute("codigoUsuario"));
             usuarioSessao.setNome((String) session.getAttribute("nomeUsuario"));
+            return usuarioSessao;
         } else {
-            usuarioSessao = null;
+            return null;
         }
-        return usuarioSessao;
     }
 
     public static void encerrar(HttpServletRequest request) {

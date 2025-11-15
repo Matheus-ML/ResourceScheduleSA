@@ -16,6 +16,18 @@ public class FiltroAutenticacao implements Filter {
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpServletResponse httpRes = (HttpServletResponse) response;
 
+        String path = httpReq.getRequestURI().substring(httpReq.getContextPath().length());
+
+        if (path.startsWith("/login") ||
+                path.startsWith("/css") ||
+                path.startsWith("/js") ||
+                path.startsWith("/img") ||
+                path.contains("favicon")) {
+
+            chain.doFilter(request, response);
+            return;
+        }
+
         UsuarioSessaoDto usuario = ControleSessao.obter(httpReq);
 
         //--Caso não seja possível determinar o usuário, realizar uma resposta forçada antes do
@@ -25,12 +37,14 @@ public class FiltroAutenticacao implements Filter {
             return;
         }
 
+
         //-- segurança para não manter o cache ativo
         httpRes.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         httpRes.setHeader("Pragma", "no-cache");
         httpRes.setDateHeader("Expires", 0);
 
         chain.doFilter(request, response);
+
     }
 
 }

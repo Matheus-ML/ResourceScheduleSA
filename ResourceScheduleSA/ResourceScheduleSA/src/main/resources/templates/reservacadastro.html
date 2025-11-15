@@ -63,15 +63,18 @@
                     </select>
                 </div>
 
+                <div th:if="${erroHora}" class="alert alert-danger">
+                    <p th:text="${erroHora}"></p>
+                </div>
 
                 <div class="mb-3">
                     <label for="reserva_horaInicial" class="form-label">Hora Inicial</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaInicio}" id="reserva_horaInicial" name="reserva_horaInicial" required/>
+                    <input type="time" min="08:00" class="form-control" th:field="*{horaInicio}" id="reserva_horaInicial" name="reserva_horaInicial" required/>
                 </div>
 
                 <div class="mb-3">
                     <label for="reserva_horaFinal" class="form-label">Hora Final</label>
-                    <input type="time" min="1" class="form-control" th:field="*{horaFinal}" id="reserva_horaFinal" name="reserva_horaFinal" required/>
+                    <input type="time" max="18:00" class="form-control" th:field="*{horaFinal}" id="reserva_horaFinal" name="reserva_horaFinal" required/>
                 </div>
 
                 <div class="mb-3">

@@ -39,9 +39,10 @@ public class LoginController {
 
             UsuarioSessaoDto usuarioSessao = new UsuarioSessaoDto(usuarioModel.getId(), usuarioModel.getNome());
 
+
             ControleSessao.registrar(request, usuarioSessao);
 
-            return "home";
+            return "redirect:/home";
         }
         return "redirect:/login?erro=true";
     }
@@ -49,8 +50,8 @@ public class LoginController {
 
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();  // encerra a sessão
+    public String logout(HttpServletRequest request) {
+        ControleSessao.encerrar(request);  // encerra a sessão
         return "redirect:/login";
     }
 

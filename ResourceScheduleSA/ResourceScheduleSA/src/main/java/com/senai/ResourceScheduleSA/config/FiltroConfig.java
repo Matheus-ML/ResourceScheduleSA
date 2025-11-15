@@ -16,7 +16,10 @@ public class FiltroConfig {
                 "/usuariocadastro", "/usuariocadastro/*",
                 "/reservacadastro", "/reservacadastro/*",
                 "/recursocadastro", "/recursocadastro/*",
-                "/recursolista", "/reservalista", "/usuariolista"
+                "/usuariolista", "/usuario/*",
+                "/reservalista", "/reserva/*",
+                "/recursolista", "/recurso/*"
+
         );
         registration.setOrder(1); // prioridade de execução, se houver outros filtros
         return registration;

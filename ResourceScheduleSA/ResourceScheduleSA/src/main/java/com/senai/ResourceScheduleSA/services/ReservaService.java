@@ -45,6 +45,12 @@ public class ReservaService {
         }
 
         if (usuarioOP.isPresent() && recursoOP.isPresent()){
+
+            if (dados.getHoraInicio().isAfter(recursoOP.get().getHoraInicio()) || dados.getHoraFinal().isBefore(recursoOP.get().getHoraFinal())){
+                return "ErroHora";
+            }
+
+
             ReservaModel reservaModel = new ReservaModel();
             reservaModel.setRecursoModel(recursoOP.get());
             reservaModel.setUsuarioModel(usuarioOP.get());

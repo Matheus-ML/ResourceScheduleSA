@@ -37,6 +37,12 @@ public class ReservaController {
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
             return "reservacadastro";
         }
+        if(a.equals("ErroHora")){
+            model.addAttribute("erroHora", "A hora de reserva, tem que ser entre o horário permitido do recurso!");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
 
         return "redirect:/reservalista";
     }

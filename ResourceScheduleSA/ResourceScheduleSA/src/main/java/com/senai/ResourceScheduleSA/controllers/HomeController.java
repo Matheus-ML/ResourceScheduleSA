@@ -11,7 +11,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(HttpSession session) {
         // VERIFICAÇÃO SIMPLES: Se não tem usuário na sessão, vai para login
-        if (session.getAttribute("usuarioLogado") == null) {
+        if (session.getAttribute("codigoUsuario") == null) {
             return "redirect:/login";
         }
         return "home";
