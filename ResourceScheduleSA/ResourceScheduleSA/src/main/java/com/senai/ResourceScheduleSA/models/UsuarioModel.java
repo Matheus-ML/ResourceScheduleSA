@@ -30,7 +30,7 @@ public class UsuarioModel {
     @Column(name = "matricula")
     private String matricula;
 
-    @Column(name = "data")
+    @Column(name = "data_nascimento")
     private LocalDate data;
 
 }
