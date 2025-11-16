@@ -39,23 +39,7 @@ public class ReservaService {
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(dados.getUsuarioModel().getId());
         Optional<RecursoModel> recursoOP = recursoRepository.findById(dados.getRecursoModel().getId());
 
-        //Verifica se o usuário já tem reserva para aquela data
-        Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(dados.getUsuarioModel().getId(), dados.getDataReserva());
-        if (reservaOP.isPresent()){
-            return "Reserva";
-        }
-
         if (usuarioOP.isPresent() && recursoOP.isPresent()){
-            //Verifica se a hora da reserva é antes ou após os horários definidos do Recurso
-            System.out.println("--------------------------------------");
-            System.out.println(dados.getHoraInicio());
-            System.out.println(recursoOP.get().getHoraInicio());
-            System.out.println(dados.getHoraFinal());
-            System.out.println(recursoOP.get().getHoraFinal());
-            if (dados.getHoraInicio().isAfter(recursoOP.get().getHoraInicio()) || dados.getHoraFinal().isBefore(recursoOP.get().getHoraFinal())){
-                return "ErroHora";
-            }
-
             ReservaModel reservaModel = new ReservaModel();
             reservaModel.setRecursoModel(recursoOP.get());
             reservaModel.setUsuarioModel(usuarioOP.get());
@@ -65,8 +49,6 @@ public class ReservaService {
             reservaRepository.save(reservaModel);
             return "Ok";
         }
-
-
         return "Erro";
     }
 
@@ -155,6 +137,29 @@ public class ReservaService {
             return true;
         }
 
+        return false;
+    }
+
+    //se retornar true = está errado
+    public boolean verificaHorasRecurso(ReservaDto reservaDto){
+        if (reservaDto.getHoraInicio().equals(reservaDto.getRecursoModel().getHoraInicio()) || reservaDto.getHoraInicio().isAfter(reservaDto.getHoraInicio())){
+            return true;
+        }
+        return false;
+    }
+    //se retornar true = está certo
+    public boolean verificaDatasRecurso(ReservaDto reservaDto){
+        Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(reservaDto.getUsuarioModel().getId(), reservaDto.getDataReserva());
+        if (reservaOP.isPresent()){
+            return true;
+        }
+        return false;
+    }
+    //se retornar true = está errado
+    public boolean verificaHoraReserva(ReservaDto reservaDto){
+        if (reservaDto.getHoraInicio().equals(reservaDto.getHoraFinal()) || reservaDto.getHoraInicio().isBefore(reservaDto.getHoraFinal())){
+            return true;
+        }
         return false;
     }
 

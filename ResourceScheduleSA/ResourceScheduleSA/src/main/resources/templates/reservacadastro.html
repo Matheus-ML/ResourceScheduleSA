@@ -76,6 +76,7 @@
                 <div class="mb-3">
                     <label for="reserva_horaFinal" class="form-label">Hora Final</label>
                     <input type="time" max="18:00" class="form-control" th:field="*{horaFinal}" id="reserva_horaFinal" name="reserva_horaFinal" required/>
+                    <div th:if="${#fields.hasErrors('horaFinal')}" th:errors="*{horaFinal}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="mb-3">

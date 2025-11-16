@@ -30,24 +30,33 @@ public class ReservaController {
     @PostMapping("/reserva")
     public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados, Model model, BindingResult result){
 
-        String a = reservaService.cadastrar(dados);
+        if(reservaService.verificaDatasRecurso(dados)){
+            result.rejectValue("dataReserva", "data.erro", "O usuário já tem uma reserva para esse dia, escolha outro!");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
+        if(!reservaService.verificaHorasRecurso(dados)){
+            result.rejectValue("horaInicio", "hora.erro", "A hora inicial, precisa ser após a hora incial e anterior a hora final do tipo selecionado!");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
 
-        if(a.equals("Reserva")){
-            result.rejectValue("dataReserva", "data.erro", "A data de reserva, precisa ser após a data inicial e anterior a data final do tipo selecionado!");
+        if (!reservaService.verificaHoraReserva(dados)){
+            result.rejectValue("horaFinal", "hora.erro","A hora inicial não pode ser igual ou após a hora final!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
             return "reservacadastro";
         }
-        if(a.equals("ErroHora")){
-            result.rejectValue("horaInicio", "hora.erro", "A hora de reserva, precisa ser após a hora incial e anterior a hora final do tipo selecionado!");
-            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
-            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
-            return "reservacadastro";
-        }
+
+
 
         if(result.hasErrors()){
             return "reservacadastro";
         }
+
+        String a = reservaService.cadastrar(dados);
 
         return "redirect:/reservalista";
     }
