@@ -21,6 +21,14 @@ public class RecursoController {
     @PostMapping("/recurso")
     public String cadastrar(@Valid @ModelAttribute ("recursoDto") RecursoDto recursoDto, BindingResult result){
 
+        if (recursoService.verificaDatas(recursoDto)){
+            result.rejectValue("dataInicio", "data.erro", "A data inicial não pode ser igual ou maior que a final!");
+        }
+
+        if (recursoService.verificaHoras(recursoDto)){
+            result.rejectValue("horaInicio", "hora.erro", "A hora inicial não pode ser igual ou maior que a final!");
+        }
+
         if (result.hasErrors()){
             return "recursocadastro";
         }
@@ -32,6 +40,14 @@ public class RecursoController {
 
     @PostMapping("/recurso/{id}")
     public String atualizar (@Valid @ModelAttribute ("recursoDto")RecursoDto recursoDto,BindingResult result, @PathVariable Long id){
+
+        if (recursoService.verificaDatas(recursoDto)){
+            result.rejectValue("dataInicio", "data.erro", "A data inicial não pode ser igual ou maior que a final!");
+        }
+
+        if (recursoService.verificaHoras(recursoDto)){
+            result.rejectValue("horaInicio", "hora.erro", "A hora inicial não pode ser igual ou maior que a final!");
+        }
 
         if (result.hasErrors()){
             return "recursoatualizar";

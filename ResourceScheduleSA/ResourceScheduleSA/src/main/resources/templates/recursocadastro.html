@@ -63,9 +63,12 @@
                     </div>
                 </div>
 
+
+
                 <div class="mb-3">
                     <label for="recurso_dataInicio" class="form-label">Data Inicial</label>
                     <input type="date" class="form-control" th:field="*{dataInicio}" id="recurso_dataInicio" name="recurso_dataInicio" required/>
+                    <div th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="mb-3">
@@ -76,6 +79,7 @@
                 <div class="mb-3">
                     <label for="recurso_horaInicial" class="form-label">Hora Inicial</label>
                     <input type="time" min="08:00" class="form-control" th:field="*{horaInicio}" id="recurso_horaInicial" name="recurso_horaInicial" required/>
+                    <div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="mb-3">

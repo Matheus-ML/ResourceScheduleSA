@@ -125,7 +125,14 @@ public class RecursoService {
     }
 
     public boolean verificaDatas(RecursoDto dados){
-        if (dados.getDataInicio().isAfter(dados.getDataFinal())){
+        if (dados.getDataInicio().isAfter(dados.getDataFinal()) || dados.getDataInicio().equals(dados.getDataFinal())){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verificaHoras(RecursoDto dados){
+        if (dados.getHoraInicio().isAfter(dados.getHoraFinal()) || dados.getHoraInicio().equals(dados.getHoraFinal())){
             return true;
         }
         return false;
