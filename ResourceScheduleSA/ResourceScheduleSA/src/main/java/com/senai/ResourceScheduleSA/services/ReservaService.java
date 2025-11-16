@@ -142,7 +142,7 @@ public class ReservaService {
 
     //se retornar true = está errado
     public boolean verificaHorasRecurso(ReservaDto reservaDto){
-        if (reservaDto.getHoraInicio().equals(reservaDto.getRecursoModel().getHoraInicio()) || reservaDto.getHoraInicio().isAfter(reservaDto.getHoraInicio())){
+        if (reservaDto.getHoraInicio().isAfter(reservaDto.getRecursoModel().getHoraInicio()) || reservaDto.getHoraFinal().isBefore(reservaDto.getRecursoModel().getHoraFinal())){
             return true;
         }
         return false;
