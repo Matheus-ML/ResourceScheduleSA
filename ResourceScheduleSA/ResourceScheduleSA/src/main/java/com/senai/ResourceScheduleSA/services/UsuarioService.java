@@ -68,7 +68,7 @@ public class UsuarioService {
     //Atualizar
     public Boolean atualizar(Long id, UsuarioDto usuarioDto){
             Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
-
+            
             if (usuarioOP.isPresent()){
 
                 Optional<UsuarioModel> usuarioVerificaEmail = usuarioRepository.findByEmail(usuarioDto.getEmail());
