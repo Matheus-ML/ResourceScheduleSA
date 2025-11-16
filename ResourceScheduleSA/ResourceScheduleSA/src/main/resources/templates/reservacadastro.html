@@ -70,6 +70,7 @@
                 <div class="mb-3">
                     <label for="reserva_horaInicial" class="form-label">Hora Inicial</label>
                     <input type="time" min="08:00" class="form-control" th:field="*{horaInicio}" id="reserva_horaInicial" name="reserva_horaInicial" required/>
+                    <div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="mb-3">
@@ -80,9 +81,7 @@
                 <div class="mb-3">
                     <label for="reserva_dataReserva" class="form-label">Data da Reserva</label>
                     <input type="date" class="form-control" th:field="*{dataReserva}" id="reserva_dataReserva" name="reserva_dataReserva" required/>
-                    <div th:if="${erroReserva}" class="alert alert-danger">
-                        <p th:text="${erroReserva}"></p>
-                    </div>
+                    <div th:if="${#fields.hasErrors('dataReserva')}" th:errors="*{dataReserva}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div class="row">

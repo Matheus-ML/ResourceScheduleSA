@@ -8,6 +8,7 @@ import com.senai.ResourceScheduleSA.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,20 +28,24 @@ public class ReservaController {
     }
 
     @PostMapping("/reserva")
-    public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados, Model model){
+    public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados, Model model, BindingResult result){
 
         String a = reservaService.cadastrar(dados);
 
         if(a.equals("Reserva")){
-            model.addAttribute("erroReserva", "Usuário já possui reserva para essa data.");
+            result.rejectValue("dataReserva", "data.erro", "A data de reserva, precisa ser após a data inicial e anterior a data final do tipo selecionado!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
             return "reservacadastro";
         }
         if(a.equals("ErroHora")){
-            model.addAttribute("erroHora", "A hora de reserva, tem que ser entre o horário permitido do recurso!");
+            result.rejectValue("horaInicio", "hora.erro", "A hora de reserva, precisa ser após a hora incial e anterior a hora final do tipo selecionado!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
+
+        if(result.hasErrors()){
             return "reservacadastro";
         }
 

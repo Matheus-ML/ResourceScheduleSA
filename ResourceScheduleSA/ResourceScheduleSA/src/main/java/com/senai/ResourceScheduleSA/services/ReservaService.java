@@ -39,17 +39,22 @@ public class ReservaService {
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(dados.getUsuarioModel().getId());
         Optional<RecursoModel> recursoOP = recursoRepository.findById(dados.getRecursoModel().getId());
 
+        //Verifica se o usuário já tem reserva para aquela data
         Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(dados.getUsuarioModel().getId(), dados.getDataReserva());
         if (reservaOP.isPresent()){
             return "Reserva";
         }
 
         if (usuarioOP.isPresent() && recursoOP.isPresent()){
-
+            //Verifica se a hora da reserva é antes ou após os horários definidos do Recurso
+            System.out.println("--------------------------------------");
+            System.out.println(dados.getHoraInicio());
+            System.out.println(recursoOP.get().getHoraInicio());
+            System.out.println(dados.getHoraFinal());
+            System.out.println(recursoOP.get().getHoraFinal());
             if (dados.getHoraInicio().isAfter(recursoOP.get().getHoraInicio()) || dados.getHoraFinal().isBefore(recursoOP.get().getHoraFinal())){
                 return "ErroHora";
             }
-
 
             ReservaModel reservaModel = new ReservaModel();
             reservaModel.setRecursoModel(recursoOP.get());
