@@ -164,7 +164,13 @@ public class ReservaService {
     }
 
     public boolean verificaDataRecurso(ReservaDto reservaDto){
-        return reservaDto.getDataReserva().isBefore(reservaDto.getRecursoModel().getDataFinal()) || reservaDto.getDataReserva().isAfter(reservaDto.getRecursoModel().getDataInicio());
+        if(reservaDto.getDataReserva().isBefore(reservaDto.getRecursoModel().getDataFinal()) && reservaDto.getDataReserva().isAfter(reservaDto.getRecursoModel().getDataInicio())){
+            return true;
+        }
+        if (reservaDto.getDataReserva().equals(reservaDto.getRecursoModel().getDataFinal()) || reservaDto.getDataReserva().equals(reservaDto.getRecursoModel().getDataInicio())){
+            return true;
+        }
+        return false;
     }
 
 
