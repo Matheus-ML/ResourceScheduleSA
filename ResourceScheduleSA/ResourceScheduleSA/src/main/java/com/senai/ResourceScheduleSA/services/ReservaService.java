@@ -163,6 +163,11 @@ public class ReservaService {
         return reservaOP.isPresent();
     }
 
+    public boolean verificaDataRecurso(ReservaDto reservaDto){
+        return reservaDto.getDataReserva().isBefore(reservaDto.getRecursoModel().getDataFinal()) || reservaDto.getDataReserva().isAfter(reservaDto.getRecursoModel().getDataInicio());
+    }
+
+
     public boolean verificaDiasDisponiveis(ReservaDto reservaDto){
         DayOfWeek diaSemana = reservaDto.getDataReserva().getDayOfWeek();
 
@@ -183,5 +188,15 @@ public class ReservaService {
         }
 
         return false;
+    }
+
+    public String devolveDias(ReservaDto reservaDto){
+        StringBuilder texto = new StringBuilder();
+        List<DiaDisponivel> dias = reservaDto.getRecursoModel().getDiaDisponivel();
+        for (DiaDisponivel dia : dias){
+            texto.append(dia.getDescricao());
+            texto.append(",");
+        }
+        return texto.toString();
     }
 }
