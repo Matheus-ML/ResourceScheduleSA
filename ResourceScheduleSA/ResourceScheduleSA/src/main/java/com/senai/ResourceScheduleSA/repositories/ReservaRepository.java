@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface ReservaRepository extends JpaRepository<ReservaModel, Long> {
     Optional<ReservaModel> findByUsuarioModelIdAndDataReserva(Long usuarioId, LocalDate dataReserva);
+    Optional<ReservaModel> findByRecursoModelIdAndDataReserva(Long recursoId, LocalDate dataReserva);
 }

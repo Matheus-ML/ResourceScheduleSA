@@ -30,13 +30,21 @@ public class ReservaController {
     @PostMapping("/reserva")
     public String cadastrar(@ModelAttribute("reservaDto") ReservaDto dados, Model model, BindingResult result){
 
-        if(reservaService.verificaDatasRecurso(dados)){
+        if(reservaService.verificaUsuarioReservas(dados)){
             result.rejectValue("dataReserva", "data.erro", "O usuário já tem uma reserva para esse dia, escolha outro!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
             return "reservacadastro";
         }
-        if(!reservaService.verificaHorasRecurso(dados)){
+
+        if (reservaService.verificaRecursoReservas(dados)){
+            result.rejectValue("dataReserva", "data.erro", "Esse recurso já está reservado para esse dia!");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
+
+        if(reservaService.verificaHorasRecurso(dados)){
             result.rejectValue("horaInicio", "hora.erro", "As horas selecionadas, precisam estar entre as horas do tipo selecionado!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
@@ -50,7 +58,12 @@ public class ReservaController {
             return "reservacadastro";
         }
 
-
+        if (!reservaService.verificaDiasDisponiveis(dados)){
+            result.rejectValue("recursoModel", "recurso.erro","Essa data, corresponde a um dia indisponível para agendar esse recurso!");
+            model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
+            model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
+            return "reservacadastro";
+        }
 
         if(result.hasErrors()){
             return "reservacadastro";

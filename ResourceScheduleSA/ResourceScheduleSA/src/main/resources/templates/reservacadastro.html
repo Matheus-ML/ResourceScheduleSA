@@ -62,6 +62,7 @@
                         <option value="">Selecione um recurso</option>
                         <option th:each="recurso : ${recursoDtoLista}" th:value="${recurso.id}" th:text="${recurso.tipo}" th:data-min-date="${recurso.dataInicio}"></option>
                     </select>
+                    <div th:if="${#fields.hasErrors('recursoModel')}" th:errors="*{recursoModel}" class="alert alert-danger mt-2"></div>
                 </div>
 
                 <div th:if="${erroHora}" class="alert alert-danger">

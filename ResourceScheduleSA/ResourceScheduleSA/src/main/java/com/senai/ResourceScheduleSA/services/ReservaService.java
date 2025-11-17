@@ -3,6 +3,7 @@ package com.senai.ResourceScheduleSA.services;
 import com.senai.ResourceScheduleSA.dtos.RecursoDto;
 import com.senai.ResourceScheduleSA.dtos.ReservaDto;
 import com.senai.ResourceScheduleSA.dtos.UsuarioDto;
+import com.senai.ResourceScheduleSA.models.DiaDisponivel;
 import com.senai.ResourceScheduleSA.models.RecursoModel;
 import com.senai.ResourceScheduleSA.models.ReservaModel;
 import com.senai.ResourceScheduleSA.models.UsuarioModel;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.swing.text.html.Option;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -142,25 +144,44 @@ public class ReservaService {
 
     //se retornar true = está errado
     public boolean verificaHorasRecurso(ReservaDto reservaDto){
-        if (reservaDto.getHoraInicio().isAfter(reservaDto.getRecursoModel().getHoraInicio()) || reservaDto.getHoraFinal().isBefore(reservaDto.getRecursoModel().getHoraFinal())){
-            return true;
-        }
-        return false;
-    }
-    //se retornar true = está certo
-    public boolean verificaDatasRecurso(ReservaDto reservaDto){
-        Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(reservaDto.getUsuarioModel().getId(), reservaDto.getDataReserva());
-        if (reservaOP.isPresent()){
-            return true;
-        }
-        return false;
-    }
-    //se retornar true = está errado
-    public boolean verificaHoraReserva(ReservaDto reservaDto){
-        if (reservaDto.getHoraInicio().equals(reservaDto.getHoraFinal()) || reservaDto.getHoraInicio().isBefore(reservaDto.getHoraFinal())){
-            return true;
-        }
-        return false;
+        return reservaDto.getHoraInicio().isBefore(reservaDto.getRecursoModel().getHoraInicio()) || reservaDto.getHoraFinal().isAfter(reservaDto.getRecursoModel().getHoraFinal());
     }
 
+    //se retornar true = está errado
+    public boolean verificaHoraReserva(ReservaDto reservaDto){
+        return reservaDto.getHoraInicio().equals(reservaDto.getHoraFinal()) || reservaDto.getHoraInicio().isBefore(reservaDto.getHoraFinal());
+    }
+
+    //se retornar true = está certo
+    public boolean verificaUsuarioReservas(ReservaDto reservaDto){
+        Optional<ReservaModel> reservaOP = reservaRepository.findByUsuarioModelIdAndDataReserva(reservaDto.getUsuarioModel().getId(), reservaDto.getDataReserva());
+        return reservaOP.isPresent();
+    }
+
+    public boolean verificaRecursoReservas(ReservaDto reservaDto){
+        Optional<ReservaModel> reservaOP = reservaRepository.findByRecursoModelIdAndDataReserva(reservaDto.getRecursoModel().getId(), reservaDto.getDataReserva());
+        return reservaOP.isPresent();
+    }
+
+    public boolean verificaDiasDisponiveis(ReservaDto reservaDto){
+        DayOfWeek diaSemana = reservaDto.getDataReserva().getDayOfWeek();
+
+        DiaDisponivel diaDisponivel = switch (diaSemana){
+            case MONDAY -> DiaDisponivel.SEGUNDA_FEIRA;
+            case TUESDAY -> DiaDisponivel.TERCA_FEIRA;
+            case WEDNESDAY -> DiaDisponivel.QUARTA_FEIRA;
+            case THURSDAY -> DiaDisponivel.QUINTA_FEIRA;
+            case FRIDAY -> DiaDisponivel.SEXTA_FEIRA;
+            case SATURDAY -> DiaDisponivel.SABADO;
+            case SUNDAY -> DiaDisponivel.DOMINGO;
+        };
+
+        for (DiaDisponivel enumDia : reservaDto.getRecursoModel().getDiaDisponivel()){
+            if (enumDia.equals(diaDisponivel)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

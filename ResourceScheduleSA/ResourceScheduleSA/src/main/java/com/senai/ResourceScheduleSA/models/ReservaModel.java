@@ -23,7 +23,7 @@ public class ReservaModel {
     @ManyToOne
     private UsuarioModel usuarioModel;
 
-    @OneToOne
+    @ManyToOne
     private RecursoModel recursoModel;
 
     @Column(name = "dataReserva")
