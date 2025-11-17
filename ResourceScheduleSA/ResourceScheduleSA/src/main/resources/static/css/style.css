@@ -124,17 +124,27 @@ table tr:nth-child(even) td {
     position: fixed;
     bottom: 0;
     right: 0;
-    max-height: 120px;
+    max-height: 70px;
     z-index: 1000;
 }
 
 .logo-bottom-left {
     position: fixed;
     bottom: 0;
-    left: 0;
-    max-height: 40px;
+    right: 0;
+    max-height: 70px;
     z-index: 1000;
 }
+
+.logo-bottom-center {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    max-height: 50px;
+    z-index: 1000;     /* garante que fique acima de outros elementos */
+}
+
+
 select.form-control {
     color: white !important;       /* garante que o texto apareça */
     background-color: rgba(0,0,0,0.2) !important; /* fundo semi-transparente */
