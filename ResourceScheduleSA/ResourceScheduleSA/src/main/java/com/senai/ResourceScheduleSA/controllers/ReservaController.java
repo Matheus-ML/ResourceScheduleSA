@@ -44,14 +44,14 @@ public class ReservaController {
             return "reservacadastro";
         }
 
-        if (reservaService.verificaDataRecurso(dados)){
+        if (!reservaService.verificaDataRecurso(dados)){
             result.rejectValue("dataReserva", "recurso.erro","A data de reserva não pode ser anterior a data inicial ou posterior a data final do recurso!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
             return "reservacadastro";
         }
 
-        if(reservaService.verificaHorasRecurso(dados)){
+        if(!reservaService.verificaHorasRecurso(dados)){
             result.rejectValue("horaInicio", "hora.erro", "As horas selecionadas, precisam estar entre as horas do tipo selecionado!");
             model.addAttribute("usuarioDtoLista", usuarioService.listaUsuarioDto());
             model.addAttribute("recursoDtoLista", recursoService.listaRecurso());
